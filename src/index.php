@@ -1,3 +1,7 @@
 <?php
 
-echo "hello, Nabu!";
+namespace Kommuna\Nabu;
+
+function helloNabu() {
+    echo "Hello Nabu";
+}
