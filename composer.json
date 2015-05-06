@@ -27,9 +27,13 @@
         "scrutinizer/ocular": "~1.1"
     },
     "autoload": {
-        "psr-4": {
-            "Kommina\\Nabu\\": "src"
-        }
+      "psr-4": {
+        "Controllers\\": "Controllers/",
+        "Models\\": "Models",
+        "Core\\": "Core/",
+        "Exceptions\\": "Exceptions/",
+        "Transformers\\": "Transformers/"
+      }
     },
     "autoload-dev": {
         "psr-4": {
