@@ -10,10 +10,7 @@ class CategoryModel extends Model {
     protected $tableName = 't_category';
 
 
-
     public function getFieldsValidators() {
-
-        $htmlColorRegex = '/^#(?:[0-9a-fA-F]{3}){1,2}$/';
 
         return [
             'id' => false,
@@ -31,9 +28,5 @@ class CategoryModel extends Model {
 
 
     }
-
-
-
-
 
 }
