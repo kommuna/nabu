@@ -7,7 +7,7 @@ use Respect\Validation\Validator as v;
 
 class CategoryModel extends Model {
 
-    protected $tableName = 'player';
+    protected $tableName = 't_category';
 
 
 
