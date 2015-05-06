@@ -8,7 +8,6 @@ ini_set('error_log', $config['log']['path']);
 date_default_timezone_set($config['app']['timezone']);
 
 use \Controllers\APICategoriesController as CC;
-use Core\Application;
 
 
 /*
@@ -29,8 +28,12 @@ $app->container->singleton('log', function() {
 });
 
 //Error listner
-$app->error('Core\Application::error');
-$app->notFound('Core\Application::notFound');
+$app->error(function($exception) {
+    Core\Application::error($exception);
+});
+$app->notFound(function() {
+    Core\Application::notFound();
+});
 
 
 /********************************************
