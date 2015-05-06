@@ -4,7 +4,7 @@ namespace Controllers;
 
 use Models\CategoryModel;
 
-use Transformers\CartegoryTransformer;
+use Transformers\CategoryTransformer;
 
 
 
@@ -13,7 +13,7 @@ class APICategoriesController extends APIController {
     public function __construct() {
         parent::__construct();
         $this->model = new CategoryModel();
-        $this->transformer = new CartegoryTransformer();
+        $this->transformer = new CategoryTransformer();
     }
 
 
