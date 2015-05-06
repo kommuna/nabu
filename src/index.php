@@ -2,7 +2,7 @@
 
 // Config and modules auto-loading
 $config = require '/etc/eropic.nabu/config.php';
-$loader = require 'vendor/autoload.php';
+$loader = require './../vendor/autoload.php';
 
 ini_set('error_log', $config['log']['path']);
 date_default_timezone_set($config['app']['timezone']);
