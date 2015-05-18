@@ -64,7 +64,7 @@ $app->put('/categories/:id', function($id) {
 });
 
 $app->delete('/categories/:id', function($id) {
-    (new CC())->markItemAsDeleted($id);
+    (new CC())->deleteItem($id);
 });
 
 $app->get('/categories', function() {
