@@ -362,7 +362,11 @@ abstract class Model {
 
         if($row) {
             $row->set_expr($this->postponeDeleteOnFieldName, 'NOW()');
-            $row->save();
+            try {
+                $row->save();
+            } catch(\Exception $e) {
+                ModelException::throwException($e->getMessage());
+            }
         }
     }
 
