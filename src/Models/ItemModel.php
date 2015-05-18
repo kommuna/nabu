@@ -14,10 +14,10 @@ class ItemModel extends Model {
 
         return [
             'id' => v::oneOf(v::numeric()->positive(), v::nullValue()),
-            'code' => v::string()->length(1,32)->notEmpty(),
+            'code' => false,
             'category_id' => v::int()->positive()->min(1),
             'name' => v::string()->length(1,256)->notEmpty(),
-            'description' => v::string(),
+            'description' => v::oneOf(v::string(), v::nullValue()),
             'posted_on' => v::oneOf(v::date(), v::nullValue()),
             'deleted_on' => false,
         ];
