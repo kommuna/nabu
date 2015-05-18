@@ -5,9 +5,9 @@ namespace Models;
 use Respect\Validation\Validator as v;
 
 
-class CategoryModel extends Model {
+class ItemModel extends Model {
 
-    protected $tableName = 't_category';
+    protected $tableName = 't_item';
 
 
     public function getFieldsValidators() {
@@ -15,10 +15,11 @@ class CategoryModel extends Model {
         return [
             'id' => v::oneOf(v::numeric()->positive(), v::nullValue()),
             'code' => v::string()->length(1,32)->notEmpty(),
+            'category_id' => v::int()->positive()->min(1),
             'name' => v::string()->length(1,256)->notEmpty(),
-            'description' => v::string()->notEmpty(),
-            'priority' => v::int()->notEmpty(),
-            'visible' => v::bool()->notEmpty()
+            'description' => v::string(),
+            'posted_on' => false,
+            'deleted_on' => false,
         ];
     }
 

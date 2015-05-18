@@ -8,6 +8,7 @@ ini_set('error_log', $config['log']['path']);
 date_default_timezone_set($config['app']['timezone']);
 
 use Controllers\APICategoriesController as CC;
+use Controllers\APIItemController as IC;
 
 
 /*
@@ -76,7 +77,7 @@ $app->post('/categories', function() {
 });
 
 
-/*
+
 $app->get('/items/:id', function($id) {
     (new IC())->getItem($id);
 });
@@ -96,7 +97,7 @@ $app->get('/items', function() {
 $app->post('/items', function() {
     (new IC())->addItem();
 });
-
+/*
 
 
 $app->post('/items/:id/votes_up', function($id) {
