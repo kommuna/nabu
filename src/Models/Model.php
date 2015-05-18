@@ -156,6 +156,12 @@ abstract class Model {
 
     }
 
+
+    public function getByCode($code) {
+        $row = ORM::for_table($this->tableName)->where_equal('code', $code);
+        return $row ? $row->as_array() : [];
+    }
+
     public function getById($id) {
         $row = ORM::for_table($this->tableName)->find_one($id);
         return $row ? $row->as_array() : [];

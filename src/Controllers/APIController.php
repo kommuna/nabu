@@ -120,6 +120,16 @@ class APIController extends Controller {
         $this->response($item, false, $statusCode);
     }
 
+    public function getItemByCode($code, $statusCode = 200) {
+
+        $item = $this->model->getByCode($code);
+
+        if(!$item) {
+            \Exceptions\NotFound404::throwException("Item with code = '$code' doesn't exist!");
+        }
+        $this->response($item, false, $statusCode);
+    }
+
     public function addItem() {
 
         $body = $this->decodeJSON($this->app->request->getBody());
@@ -131,7 +141,6 @@ class APIController extends Controller {
         $id = $this->model->setValues($body)->validateValues()->save();
 
         $this->getItem($id, 201);
-
 
     }
 
