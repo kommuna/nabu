@@ -347,7 +347,11 @@ abstract class Model {
         $row = ORM::for_table($this->tableName)->find_one($id);
 
         if($row) {
-            $row->delete();
+            try {
+                $row->delete();
+            } catch(\Exception $e) {
+                ModelException::throwException($e->getMessage());
+            }
         }
 
     }
