@@ -147,7 +147,13 @@ abstract class Model {
             $row->set($field, $value);
         }
 
-        $row->save();
+        try {
+
+            $row->save();
+
+        } catch (\Exception $e) {
+            throw new ModelException($e->getMessage());
+        }
 
         $this->values['id'] = $row->id();
 
