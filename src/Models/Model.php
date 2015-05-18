@@ -152,7 +152,7 @@ abstract class Model {
             $row->save();
 
         } catch (\Exception $e) {
-            throw new ModelException($e->getMessage());
+            ModelException::throwException($e->getMessage());
         }
 
         $this->values['id'] = $row->id();
