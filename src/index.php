@@ -56,7 +56,7 @@ $app->get('/test', function() {
 
 
 $app->get('/categories/:id', function($id) {
-    (new CC())->getItem($id);
+    (new CC())->getItemByCode($id);
 });
 
 $app->put('/categories/:id', function($id) {
