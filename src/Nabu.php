@@ -5,12 +5,14 @@ namespace Nabu;
 $loader = require './../vendor/autoload.php';
 
 use Nabu\Models\CategoryModel as CM;
+use Nabu\Models\ItemModel as IM;
 use Nabu\Exceptions\NabuException as E;
 
 
 class Nabu {
 
-    private $settings;
+    protected $settings;
+    protected $model;
 
     public function __construct($settings) {
 
@@ -18,12 +20,25 @@ class Nabu {
 
     }
 
-    public function addCategory($data) {
+    protected function setModel($model) {
+        $this->model = $model;
+    }
+
+    protected function get($id) {
+        try {
+            $data = $this->model->get($id);
+        } catch(\Exception $e) {
+            E::throwException($e->getMessage());
+        }
+
+        return $data;
+    }
+
+    protected function add($data) {
 
         try {
-            $model = new CM($this->settings);
-            $id = $model->add($data);
-            $ret = $model->get($id);
+            $id = $this->model->add($data);
+            $ret = $this->model->get($id);
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
@@ -32,53 +47,33 @@ class Nabu {
 
     }
 
-    public function getCategory($id) {
-
-        try {
-            $model = new CM($this->settings);
-            $data = $model->get($id);
-        } catch(\Exception $e) {
-            E::throwException($e->getMessage());
-        }
-
-        return $data;
-
-    }
-
-    public function deleteCategory($id) {
-
-        try {
-            $model = new CM($this->settings);
-            $model->delete($id);
+    protected function delete($id) {
+        try {;
+            $this->model->delete($id);
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
 
         return true;
-
     }
 
-    public function editCategory($id, $data) {
+    protected function edit($id, $data) {
 
         try {
-            $model = new CM($this->settings);
-            $id = $model->edit($id, $data);
-            $data = $model->get($id);
+            $id = $this->model->edit($id, $data);
+            $data = $this->model->get($id);
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
 
         return $data;
-
     }
 
-    public function getCategories($params = null) {
-
+    protected function listing($params = null) {
 
         try {
-            $model = new CM($this->settings);
-            $count = $model->getTotalCount($params);
-            $rows = $model->getMany($params);
+            $count = $this->model->getTotalCount($params);
+            $rows = $this->model->getMany($params);
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
@@ -87,23 +82,73 @@ class Nabu {
 
     }
 
-    public function addItem() {
+    public function addCategory($data) {
+
+        $this->setModel(new CM($this->settings));
+        return $this->add($data);
 
     }
 
-    public function getItem() {
+    public function getCategory($id) {
+
+        $this->setModel(new CM($this->settings));
+        return $this->get($id);
 
     }
 
-    public function deleteItem() {
+    public function deleteCategory($id) {
+
+        $this->setModel(new CM($this->settings));
+        return $this->delete($id);
 
     }
 
-    public function editItem() {
+    public function editCategory($id, $data) {
+
+        $this->setModel(new CM($this->settings));
+        return $this->edit($id,$data);
 
     }
 
-    public function getItems() {
+    public function getCategories($params = null) {
+
+        $this->setModel(new CM($this->settings));
+        return $this->listing($params);
+
+    }
+
+    public function addItem($data) {
+
+        $this->setModel(new IM($this->settings));
+        return $this->add($data);
+
+    }
+
+    public function getItem($id) {
+
+        $this->setModel(new IM($this->settings));
+        return $this->get($id);
+
+    }
+
+    public function deleteItem($id) {
+
+        $this->setModel(new IM($this->settings));
+        return $this->delete($id);
+
+    }
+
+    public function editItem($id, $data) {
+
+        $this->setModel(new IM($this->settings));
+        return $this->edit($id,$data);
+
+    }
+
+    public function getItems($params = null) {
+
+        $this->setModel(new IM($this->settings));
+        return $this->listing($params);
 
     }
 
