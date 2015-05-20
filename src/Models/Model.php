@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace Nabu\Models;
 
 use Core\apiParams;
 use Exceptions\ModelException;

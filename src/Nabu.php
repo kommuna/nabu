@@ -1,20 +1,26 @@
 <?php
 
+namespace Nabu;
+
 $loader = require './../vendor/autoload.php';
 
-use Models\CategoryModel as CM;
-use Exceptions\NabuException as E;
+use Nabu\Models\CategoryModel as CM;
+use Nabu\Exceptions\NabuException as E;
 
 class Nabu {
 
+    private $settings;
+
     public function __construct($settings) {
+
+        $this->settings = $settings;
 
     }
 
     public function addCategory($data) {
 
         try {
-            $model = new CM();
+            $model = new CM($this->settings);
             $id = $model->add($data);
             $ret = $model->get($id);
         } catch(\Exception $e) {
@@ -28,7 +34,7 @@ class Nabu {
     public function getCategory($id) {
 
         try {
-            $model = new CM();
+            $model = new CM($this->settings);
             $data = $model->get($id);
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
@@ -41,7 +47,7 @@ class Nabu {
     public function deleteCategory($id) {
 
         try {
-            $model = new CM();
+            $model = new CM($this->settings);
             $model->delete($id);
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
@@ -54,7 +60,7 @@ class Nabu {
     public function editCategory($id, $data) {
 
         try {
-            $model = new CM();
+            $model = new CM($this->settings);
             $id = $model->edit($id, $data);
             $data = $model->get($id);
         } catch(\Exception $e) {
@@ -69,7 +75,7 @@ class Nabu {
 
 
         try {
-            $model = new CM();
+            $model = new CM($this->settings);
             $count = $model->getTotalCount($params);
             $rows = $model->getMany($params);
         } catch(\Exception $e) {

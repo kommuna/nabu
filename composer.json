@@ -28,11 +28,11 @@
     },
     "autoload": {
       "psr-4": {
-        "Controllers\\": "Controllers/",
-        "Models\\": "Models",
-        "Core\\": "Core/",
-        "Exceptions\\": "Exceptions/",
-        "Transformers\\": "Transformers/"
+        "Nabu\\Controllers\\": "Controllers/",
+        "Nabu\\Models\\": "Models",
+        "Nabu\\Core\\": "Core/",
+        "Nabu\\Exceptions\\": "Exceptions/",
+        "Nabu\\Transformers\\": "Transformers/"
       }
     },
     "autoload-dev": {
