@@ -30,10 +30,10 @@ $app->container->singleton('log', function() {
 
 //Error listner
 $app->error(function($exception) {
-    Core\Application::error($exception);
+    \Nabu\Core\Application::error($exception);
 });
 $app->notFound(function() {
-    Core\Application::notFound();
+    \Nabu\Core\Application::notFound();
 });
 
 
