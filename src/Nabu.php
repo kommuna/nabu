@@ -145,7 +145,7 @@ class Nabu {
     public function deleteItem($id) {
 
         $this->setModel(new IM($this->settings));
-        return $this->delete($id);
+        return $this->markAsDelete($id);
 
     }
 
