@@ -1,6 +1,6 @@
 <?php
 
-namespace Exceptions;
+namespace Nabu\Exceptions;
 
 /**
  * The request could not be understood by the server due to malformed syntax. The client SHOULD NOT

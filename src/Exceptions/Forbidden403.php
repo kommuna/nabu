@@ -1,6 +1,6 @@
 <?php
 
-namespace Exceptions;
+namespace Nabu\Exceptions;
 
 class Forbidden403 extends APIException {
     protected $httpCode = 403;

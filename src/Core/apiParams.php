@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Nabu\Core;
 
 use Slim\Slim;
 
@@ -36,13 +36,13 @@ class apiParams {
 
         } elseif($limit > $maxLimit) {
 
-            \Exceptions\BadRequest400::throwException("Value of parameter 'limit' > ".$app->appConfig['app']['maxLimitListing']);
+            \Nabu\Exceptions\BadRequest400::throwException("Value of parameter 'limit' > ".$app->appConfig['app']['maxLimitListing']);
         }
 
         $offset = (int)$app->request->get('offset');
 
         if($offset < 0) {
-            \Exceptions\BadRequest400::throwException("'offset' should be positive or 0");
+            \Nabu\Exceptions\BadRequest400::throwException("'offset' should be positive or 0");
         }
 
         $self = new self();
@@ -65,11 +65,11 @@ class apiParams {
         $params = json_decode($params, true);
 
         if(json_last_error()) {
-            \Exceptions\BadRequest400::throwException("'$name' JSON data is invalid!");
+            \Nabu\Exceptions\BadRequest400::throwException("'$name' JSON data is invalid!");
         }
 
         if(!is_array($params)) {
-            \Exceptions\BadRequest400::throwException("'$name' JSON should be object");
+            \Nabu\Exceptions\BadRequest400::throwException("'$name' JSON should be object");
         }
 
         return $params;

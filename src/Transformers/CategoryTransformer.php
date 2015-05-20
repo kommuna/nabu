@@ -1,6 +1,6 @@
 <?php
 
-namespace Transformers;
+namespace Nabu\Transformers;
 
 use League\Fractal;
 

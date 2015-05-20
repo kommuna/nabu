@@ -1,6 +1,6 @@
 <?php
 
-namespace Exceptions;
+namespace Nabu\Exceptions;
 
 class ModelException extends BadRequest400 {
 

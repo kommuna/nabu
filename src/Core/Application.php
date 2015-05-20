@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Exceptions\APIException;
+use \Nabu\Exceptions\APIException;
 
 class Application {
 

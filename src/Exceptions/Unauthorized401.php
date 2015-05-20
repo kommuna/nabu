@@ -1,6 +1,6 @@
 <?php
 
-namespace Exceptions;
+namespace Nabu\Exceptions;
 
 class Unauthorized401 extends APIException {
     protected $httpCode = 401;

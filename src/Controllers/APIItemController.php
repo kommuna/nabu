@@ -1,10 +1,10 @@
 <?php
 
-namespace Controllers;
+namespace Nabu\Controllers;
 
-use Models\ItemModel;
+use \Nabu\Models\ItemModel;
 
-use Transformers\ItemTransformer;
+use \Nabu\Transformers\ItemTransformer;
 
 
 

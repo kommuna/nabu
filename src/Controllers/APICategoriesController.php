@@ -1,10 +1,10 @@
 <?php
 
-namespace Controllers;
+namespace Nabu\Controllers;
 
-use Models\CategoryModel;
+use Nabu\Models\CategoryModel;
 
-use Transformers\CategoryTransformer;
+use Nabu\Transformers\CategoryTransformer;
 
 
 

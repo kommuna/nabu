@@ -1,13 +1,13 @@
 <?php
 
-namespace Controllers;
+namespace Nabu\Controllers;
 
-use Exceptions;
+use Nabu\Exceptions;
 
 class Controller {
 
     protected static function getControllerName($controllerName) {
-        return "Controllers\\{$controllerName}Controller";
+        return "\\Nabu\\Controllers\\{$controllerName}Controller";
     }
 
     public static function init($controllerName, $actionName) {

@@ -1,13 +1,11 @@
 <?php
 
-namespace Controllers;
+namespace Nabu\Controllers;
 
-use Core\apiParams;
-use Exceptions\BadRequest400;
+use \Nabu\Core\apiParams;
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
 use League\Fractal\Resource\Collection;
-use Exceptions\InternalServerError500;
 use Slim\Slim;
 
 
@@ -19,7 +17,7 @@ class APIController extends Controller {
 
 
     protected static function getControllerName($controllerName) {
-        return "Controllers\\API{$controllerName}Controller";
+        return "\\Nabu\\Controllers\\API{$controllerName}Controller";
     }
 
     public function response($data, $totalCount = false, $statusCode = 200) {
@@ -52,7 +50,7 @@ class APIController extends Controller {
         $response = json_encode($response, JSON_UNESCAPED_UNICODE);
 
         if($response === false) {
-            InternalServerError500::throwException("Response couldn't encoded as JSON");
+            \Nabu\Exceptions\InternalServerError500::throwException("Response couldn't encoded as JSON");
         }
 
         ob_end_clean();
@@ -84,7 +82,7 @@ class APIController extends Controller {
         $count = $this->model->getTotalCount($params);
 
         if($params->getOffset() < 0) {
-            \Exceptions\BadRequest400::throwException("'offset' out of range");
+            \Nabu\Exceptions\BadRequest400::throwException("'offset' out of range");
         }
         $rows = $this->model->getMany($params);
 
@@ -95,13 +93,13 @@ class APIController extends Controller {
     protected function decodeJSON($jsonString) {
 
         if(!$jsonString) {
-            \Exceptions\BadRequest400::throwException('Body request is empty!');
+            \Nabu\Exceptions\BadRequest400::throwException('Body request is empty!');
         }
 
         $json = json_decode($jsonString, true);
 
         if(json_last_error()) {
-            \Exceptions\BadRequest400::throwException('Request JSON data is invalid!');
+            \Nabu\Exceptions\BadRequest400::throwException('Request JSON data is invalid!');
         }
 
         return $json;
@@ -115,7 +113,7 @@ class APIController extends Controller {
         $item = $this->model->getById($id);
 
         if(!$item) {
-            \Exceptions\NotFound404::throwException("Item with id = $id doesn't exist!");
+            \Nabu\Exceptions\NotFound404::throwException("Item with id = $id doesn't exist!");
         }
         $this->response($item, false, $statusCode);
     }
@@ -125,7 +123,7 @@ class APIController extends Controller {
         $item = $this->model->getByCode($code);
 
         if(!$item) {
-            \Exceptions\NotFound404::throwException("Item with code = '$code' doesn't exist!");
+            \Nabu\Exceptions\NotFound404::throwException("Item with code = '$code' doesn't exist!");
         }
         $this->response($item, false, $statusCode);
     }
@@ -148,7 +146,7 @@ class APIController extends Controller {
 
         $item = $this->model->getById($id);
         if(!$item) {
-            \Exceptions\NotFound404::throwException("Item with id = $id doesn't exist!");
+            \Nabu\Exceptions\NotFound404::throwException("Item with id = $id doesn't exist!");
         }
 
         return $item;
