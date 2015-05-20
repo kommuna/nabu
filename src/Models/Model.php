@@ -170,7 +170,7 @@ abstract class Model {
         return $row ? $row->as_array() : [];
     }
 
-    public function getTotalCount(apiParams $params = null) {
+    public function getTotalCount($params = null) {
 
         $orm = ORM::for_table($this->tableName);
 
@@ -191,7 +191,7 @@ abstract class Model {
     }
 
 
-    protected function applyFilterToORM(ORM $orm, apiParams $params = null) {
+    protected function applyFilterToORM(ORM $orm, $params = null) {
 
         if(is_null($params)) {
             return $orm;
@@ -277,7 +277,7 @@ abstract class Model {
         return $orm;
     }
 
-    protected function applyOrderToORM(ORM $orm, apiParams $params = null) {
+    protected function applyOrderToORM(ORM $orm, $params = null) {
 
         if(is_null($params)) {
             return $orm;
@@ -317,7 +317,7 @@ abstract class Model {
         return $orm;
     }
 
-    public function getMany(apiParams $params = null) {
+    public function getMany($params = null) {
 
         $orm = ORM::for_table($this->tableName);
 
