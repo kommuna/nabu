@@ -57,6 +57,17 @@ class Nabu {
         return true;
     }
 
+    protected function markAsDelete($id) {
+
+        try {;
+            $this->model->markAsDeleted($id);
+        } catch(\Exception $e) {
+            E::throwException($e->getMessage());
+        }
+
+        return true;
+    }
+
     protected function edit($id, $data) {
 
         try {
