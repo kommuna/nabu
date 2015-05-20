@@ -17,10 +17,7 @@ abstract class Model {
     abstract function getFieldsValidators();
 
 
-    public function __construct() {
-
-        $app = Slim::getInstance();
-        $db = $app->appConfig['db'];
+    public function __construct($db) {
 
         ORM::configure("pgsql:host={$db['host']};dbname={$db['dbname']}");
         ORM::configure('username', $db['username']);
@@ -368,6 +365,45 @@ abstract class Model {
                 ModelException::throwException($e->getMessage());
             }
         }
+    }
+
+    public function get($id) {
+
+        $item = $this->getById($id);
+
+        if(!$item) {
+            ModelException::throwException("Entity with id = $id doesn't exist!");
+        }
+
+        return $item;
+
+    }
+
+    public function add($data) {
+
+        if(isset($data['id'])) {
+            unset($data['id']);
+        }
+
+        $id = $this->setValues($data)->validateValues()->save();
+
+        return $id;
+
+    }
+
+    public function edit($id, $data) {
+
+
+        $item = $this->getById($id);
+
+        if(!$item) {
+            ModelException::throwException("Entity with id = $id doesn't exist!");
+        }
+
+        $data['id'] = $id;
+
+        return $this->setValues($data, true)->validateValues()->save();
+
     }
 
 }
