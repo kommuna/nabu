@@ -69,12 +69,7 @@ $app->delete('/categories/:id', function($id) {
 });
 
 $app->get('/categories', function() {
-    $app = \Slim\Slim::getInstance();
-    $dbConfig = $app->appConfig['nabu']['db'];
-    $categories = (new Nabu($dbConfig))->getCategories();
-    $app->halt(200,json_encode($categories));
-
-    //(new CC())->getList();
+    (new CC())->getList();
 });
 
 $app->post('/categories', function() {
