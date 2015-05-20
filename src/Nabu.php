@@ -6,6 +6,7 @@ $loader = require './../vendor/autoload.php';
 
 use Nabu\Models\CategoryModel as CM;
 use Nabu\Exceptions\NabuException as E;
+use Nabu\Core\apiParams;
 
 class Nabu {
 
@@ -71,7 +72,7 @@ class Nabu {
 
     }
 
-    public function getCategories(\Core\apiParams $params = null) {
+    public function getCategories(apiParams $params = null) {
 
 
         try {
@@ -82,7 +83,7 @@ class Nabu {
             E::throwException($e->getMessage());
         }
 
-        return ['rows' => $rows, 'count' => $count];
+        return ['data' => $rows, 'count' => $count];
 
     }
 
