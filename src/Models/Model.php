@@ -2,8 +2,8 @@
 
 namespace Nabu\Models;
 
-use Core\apiParams;
-use Exceptions\ModelException;
+use \Nabu\Core\apiParams;
+use \Nabu\Exceptions\ModelException;
 use Slim\Slim;
 use ORM;
 
