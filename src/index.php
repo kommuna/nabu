@@ -7,8 +7,8 @@ $loader = require './../vendor/autoload.php';
 ini_set('error_log', $config['log']['path']);
 date_default_timezone_set($config['app']['timezone']);
 
-use Controllers\APICategoriesController as CC;
-use Controllers\APIItemController as IC;
+use \Nabu\Controllers\APICategoriesController as CC;
+use \Nabu\Controllers\APIItemController as IC;
 
 
 /*
