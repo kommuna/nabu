@@ -18,7 +18,9 @@ class ItemModel extends Model {
             'category_id' => v::int()->positive()->min(0),
             'name' => v::string()->length(1,256)->notEmpty(),
             'description' => v::oneOf(v::string(), v::nullValue()),
+            'tags' => v::oneOf(v::string(), v::nullValue()),
             'posted_on' => v::oneOf(v::date(), v::nullValue()),
+            'activated_on' => v::oneOf(v::date(), v::nullValue()),
             'deleted_on' => false,
         ];
     }
