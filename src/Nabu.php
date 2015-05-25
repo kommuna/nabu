@@ -4,6 +4,7 @@ namespace Nabu;
 
 $loader = require './../vendor/autoload.php';
 
+use Nabu\Exceptions\ModelException;
 use Nabu\Models\CategoryModel as CM;
 use Nabu\Models\ItemModel as IM;
 use Nabu\Exceptions\NabuException as E;
@@ -32,6 +33,8 @@ class Nabu {
     protected function get($id) {
         try {
             $data = $this->model->get($id);
+        } catch(ModelException $e) {
+            E::throwException($e->getErrors());
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
@@ -44,6 +47,8 @@ class Nabu {
         try {
             $id = $this->model->add($data);
             $ret = $this->model->get($id);
+        } catch(ModelException $e) {
+            E::throwException($e->getErrors());
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
@@ -55,6 +60,8 @@ class Nabu {
     protected function delete($id) {
         try {;
             $this->model->delete($id);
+        } catch(ModelException $e) {
+            E::throwException($e->getErrors());
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
@@ -66,6 +73,8 @@ class Nabu {
 
         try {;
             $this->model->markAsDeleted($id);
+        } catch(ModelException $e) {
+            E::throwException($e->getErrors());
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
@@ -78,6 +87,8 @@ class Nabu {
         try {
             $id = $this->model->edit($id, $data);
             $data = $this->model->get($id);
+        } catch(ModelException $e) {
+            E::throwException($e->getErrors());
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
@@ -90,6 +101,8 @@ class Nabu {
         try {
             $count = $this->model->getTotalCount($params);
             $rows = $this->model->getMany($params);
+        } catch(ModelException $e) {
+            E::throwException($e->getErrors());
         } catch(\Exception $e) {
             E::throwException($e->getMessage());
         }
