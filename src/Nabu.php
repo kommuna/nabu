@@ -11,17 +11,22 @@ use Nabu\Exceptions\NabuException as E;
 
 class Nabu {
 
-    protected $settings;
+    protected static $settings;
+    protected static $logger;
     protected $model;
 
-    public function __construct($settings) {
+    public function __construct($settings, $logger = null) {
 
-        $this->settings = $settings;
+        IM::init($settings, $logger);
+
+        self::$settings = $settings;
+        self::$logger = $logger;
 
     }
 
     protected function setModel($model) {
         $this->model = $model;
+        return $this;
     }
 
     protected function get($id) {
@@ -95,71 +100,61 @@ class Nabu {
 
     public function addCategory($data) {
 
-        $this->setModel(new CM($this->settings));
-        return $this->add($data);
+        return $this->setModel(new CM())->add($data);
 
     }
 
     public function getCategory($id) {
 
-        $this->setModel(new CM($this->settings));
-        return $this->get($id);
+        return $this->setModel(new CM())->get($id);
 
     }
 
     public function deleteCategory($id) {
 
-        $this->setModel(new CM($this->settings));
-        return $this->delete($id);
+        return $this->setModel(new CM())->delete($id);
 
     }
 
     public function editCategory($id, $data) {
 
-        $this->setModel(new CM($this->settings));
-        return $this->edit($id,$data);
+        return $this->setModel(new CM())->edit($id,$data);
 
     }
 
     public function getCategories($params = null) {
 
-        $this->setModel(new CM($this->settings));
-        return $this->listing($params);
+        return $this->setModel(new CM())->listing($params);
 
     }
 
     public function addItem($data) {
 
-        $this->setModel(new IM($this->settings));
-        return $this->add($data);
+        return $this->setModel(new IM())->add($data);
 
     }
 
     public function getItem($id) {
 
-        $this->setModel(new IM($this->settings));
-        return $this->get($id);
+        return $this->setModel(new IM())->get($id);
 
     }
 
     public function deleteItem($id) {
 
-        $this->setModel(new IM($this->settings));
-        return $this->markAsDelete($id);
+        return $this->setModel(new IM())->markAsDelete($id);
 
     }
 
     public function editItem($id, $data) {
 
-        $this->setModel(new IM($this->settings));
-        return $this->edit($id,$data);
+        return $this->setModel(new IM())->edit($id,$data);
 
     }
 
     public function getItems($params = null) {
 
-        $this->setModel(new IM($this->settings));
-        return $this->listing($params);
+        return $this->setModel(new IM())->listing($params);
 
     }
 

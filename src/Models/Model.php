@@ -2,12 +2,15 @@
 
 namespace Nabu\Models;
 
-use \Nabu\Core\apiParams;
+//use \Nabu\Core\apiParams;
 use \Nabu\Exceptions\ModelException;
-use Slim\Slim;
 use ORM;
 
 abstract class Model {
+
+    protected static $connectionName = 'nabu';
+
+    protected static $logger;
 
     protected $fields = [];
     protected $values = [];
@@ -16,21 +19,37 @@ abstract class Model {
 
     abstract function getFieldsValidators();
 
+    public static function setLogger($logger) {
 
-    public function __construct($db) {
+        self::$logger = $logger;
 
-        ORM::configure("pgsql:host={$db['host']};dbname={$db['dbname']}");
-        ORM::configure('username', $db['username']);
-        ORM::configure('password', $db['password']);
+        ORM::configure('logging', true, self::$connectionName);
+        ORM::configure('logger', function($log_string, $query_time) use ($logger) {
+            $logger->addDebug($log_string . ' in ' . $query_time);
+        }, self::$connectionName);
+
+    }
+
+    public static function init($dbSettings, $logger = null) {
+
+        ORM::configure("pgsql:host={$dbSettings['host']};dbname={$dbSettings['dbname']}", null, self::$connectionName);
+        ORM::configure('username', $dbSettings['username'], self::$connectionName);
+        ORM::configure('password', $dbSettings['password'], self::$connectionName);
 
 
-        if(isset($db['debug']) && $db['debug']) {
+        if($logger && isset($dbSettings['debug']) && $dbSettings['debug']) {
 
-            ORM::configure('logging', $db['debug']);
-            ORM::configure('logger', function($log_string, $query_time) {
-                Slim::getInstance()->log->addDebug($log_string . ' in ' . $query_time);
-            });
+            self::setLogger($logger);
 
+        }
+
+    }
+
+
+    public function __construct($dbSettings = null, $logger = null) {
+
+        if(!is_null($dbSettings)) {
+            self::init($dbSettings, $logger);
         }
 
         $this->fields = $this->getFieldsValidators();
@@ -132,9 +151,9 @@ abstract class Model {
     public function save() {
 
         if(isset($this->values['id']) && $this->values['id']) {
-            $row = ORM::for_table($this->tableName)->find_one($this->values['id']);
+            $row = ORM::for_table($this->tableName, self::$connectionName)->find_one($this->values['id']);
         } else {
-            $row = ORM::for_table($this->tableName)->create();
+            $row = ORM::for_table($this->tableName, self::$connectionName)->create();
         }
 
         foreach($this->values as $field => $value) {
@@ -161,18 +180,18 @@ abstract class Model {
 
 
     public function getByCode($code) {
-        $row = ORM::for_table($this->tableName)->where_equal('code', $code);
+        $row = ORM::for_table($this->tableName, self::$connectionName)->where_equal('code', $code);
         return $row ? $row->as_array() : [];
     }
 
     public function getById($id) {
-        $row = ORM::for_table($this->tableName)->find_one($id);
+        $row = ORM::for_table($this->tableName, self::$connectionName)->find_one($id);
         return $row ? $row->as_array() : [];
     }
 
     public function getTotalCount($params = null) {
 
-        $orm = ORM::for_table($this->tableName);
+        $orm = ORM::for_table($this->tableName, self::$connectionName);
 
         $orm = $this->applyFilterToORM($orm, $params);
 
@@ -319,7 +338,7 @@ abstract class Model {
 
     public function getMany($params = null) {
 
-        $orm = ORM::for_table($this->tableName);
+        $orm = ORM::for_table($this->tableName, self::$connectionName);
 
         if(isset($this->fields[$this->postponeDeleteOnFieldName])) {
             $orm->where_null($this->postponeDeleteOnFieldName);
@@ -341,7 +360,7 @@ abstract class Model {
 
     public function delete($id) {
 
-        $row = ORM::for_table($this->tableName)->find_one($id);
+        $row = ORM::for_table($this->tableName, self::$connectionName)->find_one($id);
 
         if($row) {
             try {
@@ -355,7 +374,7 @@ abstract class Model {
 
     public function markAsDeleted($id) {
 
-        $row = ORM::for_table($this->tableName)->find_one($id);
+        $row = ORM::for_table($this->tableName, self::$connectionName)->find_one($id);
 
         if($row) {
             $row->set_expr($this->postponeDeleteOnFieldName, 'NOW()');

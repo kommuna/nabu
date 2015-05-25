@@ -12,6 +12,7 @@ class APIItemController extends APIController {
 
     public function __construct() {
         parent::__construct();
+        ItemModel::init($this->app->appConfig['db'], $this->app->log);
         $this->model = new ItemModel($this->app->appConfig['db']);
         $this->transformer = new ItemTransformer();
     }
