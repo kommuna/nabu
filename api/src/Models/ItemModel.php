@@ -21,6 +21,7 @@ class ItemModel extends Model {
             'tags' => v::oneOf(v::string(), v::nullValue()),
             'posted_on' => v::oneOf(v::date(), v::nullValue()),
             'activated_on' => v::oneOf(v::date(), v::nullValue()),
+            'is_param_1' => v::oneOf(v::bool(), v::nullValue()),
             'deleted_on' => false,
         ];
     }
