@@ -28,5 +28,14 @@ class ItemModel extends Model {
         ];
     }
 
+    protected function afterValidateValues() {
+
+        $tags = $this->getValue('tags');
+        if($tags) {
+            $tags = '{'.implode(",",$tags).'}';
+        }
+        $this->setValue('tags', $tags);
+    }
+
 
 }

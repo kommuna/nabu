@@ -102,10 +102,11 @@ abstract class Model {
     }
 
     public function setValue($field, $value, $force = false) {
-
+/*
         if(isset($this->fields[$field]) && !$this->fields[$field]) {
             return;
         }
+*/
 
         if($force || (isset($this->fields[$field]) && $this->fields[$field])) {
             $this->values[$field] = $value;
@@ -117,6 +118,8 @@ abstract class Model {
     }
 
     protected function beforeValidateValues() {}
+
+    protected function afterValidateValues() {}
 
 
     public function validateValues() {
@@ -131,6 +134,8 @@ abstract class Model {
 
             ModelException::throwException($this->errors);
         }
+
+        $this->afterValidateValues();
 
         return $this;
     }
