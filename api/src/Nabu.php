@@ -18,7 +18,7 @@ class Nabu {
 
     public function __construct($settings, $logger = null) {
 
-        IM::init($settings, $logger);
+        IM::init($settings['db'], $logger);
 
         self::$settings = $settings;
         self::$logger = $logger;
