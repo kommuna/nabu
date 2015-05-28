@@ -143,6 +143,8 @@ class Nabu {
 
     public function addItem($data) {
 
+        $data['posted_on'] = !empty($data['posted_on']) ? $data['posted_on'] : date('Y-m-d H:i:s');
+
         return $this->setModel(new IM())->add($data);
 
     }
