@@ -63,8 +63,17 @@ class SolrModel {
                 $this->applyOrder($query, $params);
 
         */
-        $response = $this->client->query($query);
+        $queryResponse = $this->client->query($query);
 
+        if($queryResponse->success()) {
+
+            $response = $queryResponse->getResponse();
+            $this->totalResultSetCount = (int)$response['response']['numFound'];
+            $response = $response['response']['docs'];
+
+        } else {
+            $response = [];
+        }
 
 
         return $response;
