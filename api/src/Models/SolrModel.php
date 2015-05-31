@@ -112,7 +112,7 @@ class SolrModel {
 
                         $time = strtotime($fieldParams['from']);
 
-                        $from = $time !== false ? date("c", $time) : false;
+                        $from = $time !== false ? date("c", $time).'Z' : false;
                     } else {
                         $from = $fieldParams['from'];
                     }
@@ -123,7 +123,7 @@ class SolrModel {
 
                     if (substr($field, -3) == '_on') {
                         $time = strtotime($fieldParams['to']);
-                        $to = $time !== false ? date("c", $time) : false;
+                        $to = $time !== false ? date("c", $time).'Z' : false;
                     } else {
                         $to = $fieldParams['to'];
                     }
@@ -158,7 +158,7 @@ class SolrModel {
                 } elseif (substr($field, -3) == '_on') {
 
                     $time = strtotime($fieldParams);
-                    $fieldParams = $time !== false ? date("c", $time) : false;
+                    $fieldParams = $time !== false ? date("c", $time).'Z' : false;
 
                 }
 
