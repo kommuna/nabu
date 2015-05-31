@@ -56,11 +56,11 @@ class SolrModel {
 
 
 
-
+/*
         $this->applyFilter($query, $params);
         $this->applyOrder($query, $params);
 
-
+*/
         $response = $this->client->query($query);
 
 
