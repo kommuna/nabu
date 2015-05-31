@@ -12,12 +12,15 @@ abstract class Model {
 
     protected static $logger;
 
+    protected $validators = [];
     protected $fields = [];
     protected $values = [];
     protected $errors = [];
     protected $postponeDeleteOnFieldName = 'deleted_on';
 
-    abstract function getFieldsValidators();
+    public function getFieldsValidators() {
+        return $this->validators;
+    }
 
     public static function setLogger($logger) {
 
@@ -59,6 +62,10 @@ abstract class Model {
             unset($this->fields[$this->postponeDeleteOnFieldName]);
         }
 
+    }
+
+    protected function setFieldsValidators($validators) {
+        $this->validators = $validators;
     }
 
     protected function flushValues() {
