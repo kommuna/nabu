@@ -7,7 +7,7 @@ $loader = require './../vendor/autoload.php';
 use Nabu\Exceptions\ModelException;
 use Nabu\Models\CategoryModel as CM;
 use Nabu\Models\ItemModel as IM;
-use Nabu\Models\SearchModel as SM;
+use Nabu\Models\SolrModel as SM;
 use Nabu\Exceptions\NabuException as E;
 
 
