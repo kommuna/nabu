@@ -45,24 +45,19 @@ class SolrModel {
             ->addField('promo_url');
 
         $query->setQuery($params && $params->getQuery() ? $params->getQuery() : '*:*');
-        /*
-                if($params && $params->getOffset()) {
-                    $query->setStart($params->getOffset());
-                }
 
-                if($params && $params->getLimit()) {
-                    $query->setRows($params->getLimit());
-                }
+        if($params && $params->getOffset()) {
+            $query->setStart($params->getOffset());
+        }
+
+        if($params && $params->getLimit()) {
+            $query->setRows($params->getLimit());
+        }
+
+        $this->applyFilter($query, $params);
+        $this->applyOrder($query, $params);
 
 
-
-
-
-
-                $this->applyFilter($query, $params);
-                $this->applyOrder($query, $params);
-
-        */
         $queryResponse = $this->client->query($query);
 
         if($queryResponse->success()) {
