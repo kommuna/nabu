@@ -44,23 +44,25 @@ class SolrModel {
             ->addField('promo_title')
             ->addField('promo_url');
 
-        if($params && $params->getOffset()) {
-            $query->setStart($params->getOffset());
-        }
-
-        if($params && $params->getLimit()) {
-            $query->setRows($params->getLimit());
-        }
-
         $query->setQuery($params && $params->getQuery() ? $params->getQuery() : '*:*');
+        /*
+                if($params && $params->getOffset()) {
+                    $query->setStart($params->getOffset());
+                }
+
+                if($params && $params->getLimit()) {
+                    $query->setRows($params->getLimit());
+                }
 
 
 
-/*
-        $this->applyFilter($query, $params);
-        $this->applyOrder($query, $params);
 
-*/
+
+
+                $this->applyFilter($query, $params);
+                $this->applyOrder($query, $params);
+
+        */
         $response = $this->client->query($query);
 
 
