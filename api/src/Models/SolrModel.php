@@ -10,6 +10,7 @@ abstract class SolrModel {
 
     protected $validators = [];
     protected $client;
+    protected $totalResultSetCount = 0;
 
     public function __construct($config) {
 
@@ -58,9 +59,16 @@ abstract class SolrModel {
 
         $response = $this->client->query($query);
 
+
+
         return $response;
 
 
+    }
+
+
+    public function getTotalCount($params = null) {
+        return $this->totalResultSetCount;
     }
 
 

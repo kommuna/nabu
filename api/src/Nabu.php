@@ -7,6 +7,7 @@ $loader = require './../vendor/autoload.php';
 use Nabu\Exceptions\ModelException;
 use Nabu\Models\CategoryModel as CM;
 use Nabu\Models\ItemModel as IM;
+use Nabu\Models\SearchModel as SM;
 use Nabu\Exceptions\NabuException as E;
 
 
@@ -35,8 +36,6 @@ class Nabu {
             $data = $this->model->get($id);
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
-        } catch(\Exception $e) {
-            E::throwException($e->getMessage());
         }
 
         return $data;
@@ -49,8 +48,6 @@ class Nabu {
             $ret = $this->model->get($id);
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
-        } catch(\Exception $e) {
-            E::throwException($e->getMessage());
         }
 
         return $ret ;
@@ -62,8 +59,6 @@ class Nabu {
             $this->model->delete($id);
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
-        } catch(\Exception $e) {
-            E::throwException($e->getMessage());
         }
 
         return true;
@@ -75,8 +70,6 @@ class Nabu {
             $this->model->markAsDeleted($id);
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
-        } catch(\Exception $e) {
-            E::throwException($e->getMessage());
         }
 
         return true;
@@ -89,8 +82,6 @@ class Nabu {
             $data = $this->model->get($id);
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
-        } catch(\Exception $e) {
-            E::throwException($e->getMessage());
         }
 
         return $data;
@@ -99,12 +90,12 @@ class Nabu {
     protected function listing($params = null) {
 
         try {
-            $count = $this->model->getTotalCount($params);
+
             $rows = $this->model->getMany($params);
+            $count = $this->model->getTotalCount($params);
+
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
-        } catch(\Exception $e) {
-            E::throwException($e->getMessage());
         }
 
         return ['data' => $rows, 'count' => $count];
@@ -171,6 +162,10 @@ class Nabu {
 
         return $this->setModel(new IM())->listing($params);
 
+    }
+
+    public function searchModel($params = null) {
+        return $this->setModel(new SM())->listing($params);
     }
 
 }
