@@ -163,7 +163,7 @@ class Nabu {
     }
 
     public function searchItems($params = null) {
-        return $this->setModel(new SM(self::$settings['nabu'], self::$logger))->listing($params);
+        return $this->setModel(new SM(self::$settings['solr'], self::$logger))->listing($params);
     }
 
 }
