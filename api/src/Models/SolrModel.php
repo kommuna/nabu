@@ -52,9 +52,7 @@ class SolrModel {
             $query->setRows($params->getLimit());
         }
 
-        if($params && $params->getQuery()) {
-            $query->setQuery($params->getQuery());
-        }
+        $query->setQuery($params && $params->getQuery() ? $params->getQuery() : '*:*');
 
 
 
