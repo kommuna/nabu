@@ -10,10 +10,12 @@ class SolrModel {
 
     protected $validators = [];
     protected $client;
+    protected $logger;
     protected $totalResultSetCount = 0;
 
-    public function __construct($config) {
+    public function __construct($config, $logger) {
 
+        $this->logger = $logger;
 
         $this->setFieldsValidators((new ItemValidators())->get());
         $this->client = new SolrClient($config);
