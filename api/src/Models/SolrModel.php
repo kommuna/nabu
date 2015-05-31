@@ -3,8 +3,8 @@
 namespace Nabu\Models;
 
 use \Nabu\Exceptions\ModelException;
-use SolrClient;
-use SolrQuery;
+use \SolrClient;
+use \SolrQuery;
 
 abstract class SolrModel {
 
