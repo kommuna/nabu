@@ -19,8 +19,6 @@ class Nabu {
 
     public function __construct($settings, $logger = null) {
 
-        IM::init($settings['db'], $logger);
-
         self::$settings = $settings;
         self::$logger = $logger;
 
@@ -104,31 +102,31 @@ class Nabu {
 
     public function addCategory($data) {
 
-        return $this->setModel(new CM())->add($data);
+        return $this->setModel(new CM(self::$settings['db'], self::$logger))->add($data);
 
     }
 
     public function getCategory($id) {
 
-        return $this->setModel(new CM())->get($id);
+        return $this->setModel(new CM(self::$settings['db'], self::$logger))->get($id);
 
     }
 
     public function deleteCategory($id) {
 
-        return $this->setModel(new CM())->delete($id);
+        return $this->setModel(new CM(self::$settings['db'], self::$logger))->delete($id);
 
     }
 
     public function editCategory($id, $data) {
 
-        return $this->setModel(new CM())->edit($id,$data);
+        return $this->setModel(new CM(self::$settings['db'], self::$logger))->edit($id,$data);
 
     }
 
     public function getCategories($params = null) {
 
-        return $this->setModel(new CM())->listing($params);
+        return $this->setModel(new CM(self::$settings['db'], self::$logger))->listing($params);
 
     }
 
@@ -136,36 +134,36 @@ class Nabu {
 
         $data['posted_on'] = !empty($data['posted_on']) ? $data['posted_on'] : date('Y-m-d H:i:s');
 
-        return $this->setModel(new IM())->add($data);
+        return $this->setModel(new IM(self::$settings['db'], self::$logger))->add($data);
 
     }
 
     public function getItem($id) {
 
-        return $this->setModel(new IM())->get($id);
+        return $this->setModel(new IM(self::$settings['db'], self::$logger))->get($id);
 
     }
 
     public function deleteItem($id) {
 
-        return $this->setModel(new IM())->markAsDelete($id);
+        return $this->setModel(new IM(self::$settings['db'], self::$logger))->markAsDelete($id);
 
     }
 
     public function editItem($id, $data) {
 
-        return $this->setModel(new IM())->edit($id,$data);
+        return $this->setModel(new IM(self::$settings['db'], self::$logger))->edit($id,$data);
 
     }
 
     public function getItems($params = null) {
 
-        return $this->setModel(new IM())->listing($params);
+        return $this->setModel(new IM(self::$settings['db'], self::$logger))->listing($params);
 
     }
 
     public function searchItems($params = null) {
-        return $this->setModel(new SM())->listing($params);
+        return $this->setModel(new SM(self::$settings['nabu']))->listing($params);
     }
 
 }
