@@ -164,7 +164,7 @@ class Nabu {
 
     }
 
-    public function searchModel($params = null) {
+    public function searchItems($params = null) {
         return $this->setModel(new SM())->listing($params);
     }
 
