@@ -6,7 +6,7 @@ use \Nabu\Exceptions\ModelException;
 use \SolrClient;
 use \SolrQuery;
 
-abstract class SolrModel {
+class SolrModel {
 
     protected $validators = [];
     protected $client;
