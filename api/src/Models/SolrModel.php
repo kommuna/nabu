@@ -38,6 +38,7 @@ class SolrModel {
         $query->addField('id')
             ->addField('code')
             ->addField('category_id')
+            ->addField('name')
             ->addField('description')
             ->addField('activated_on')
             ->addField('is_param_1')
