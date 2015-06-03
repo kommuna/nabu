@@ -100,6 +100,27 @@ class Nabu {
 
     }
 
+    protected function increaseViewsCounter($code) {
+
+        try {
+
+            $model = $this->model->getByCode($code);
+
+            if($model) {
+                $this->model->edit($model[0]['id'], ["views_counter" => (int)$model[0]["views_counter"] + 1]);
+            } else {
+                ModelException::throwException("Item with 'code' = $code doesn't exists");
+            }
+
+
+        } catch(ModelException $e) {
+            E::throwException($e->getErrors());
+        }
+
+        return true;
+
+    }
+
     public function addCategory($data) {
 
         return $this->setModel(new CM(self::$settings['db'], self::$logger))->add($data);
@@ -163,7 +184,14 @@ class Nabu {
     }
 
     public function searchItems($params = null) {
+
         return $this->setModel(new SM(self::$settings['solr'], self::$logger))->listing($params);
+    }
+
+    public function increaseViewsCounterByCode($code) {
+
+        $this->setModel(new IM(self::$settings['db'], self::$logger))->increaseViewsCounter($code);
+
     }
 
 }

@@ -19,6 +19,7 @@ class ItemTransformer extends Fractal\TransformerAbstract {
             'promo_title' => $itemArray['promo_title'],
             'promo_url' => $itemArray['promo_url'],
             'posted_on' => $itemArray['posted_on'],
+            'views_counter' => (int)$itemArray['views_counter'],
             'activated_on' => $itemArray['activated_on'],
             'deleted_on' => $itemArray['deleted_on'],
             'is_param_1' => (bool)$itemArray['is_param_1'],
