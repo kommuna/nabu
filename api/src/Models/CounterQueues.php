@@ -35,25 +35,25 @@ class CounterQueues {
 
     public function increaseViewsCounter($code) {
 
-        $this->increaseCounter($code, 'item-views');
+        $this->increaseCounter($code, 'nabu-item-views');
 
     }
 
     public function increaseVotesPositive($code) {
 
-        $this->increaseCounter($code, 'item-votes-positive');
+        $this->increaseCounter($code, 'nabu-item-votes-positive');
 
     }
 
     public function increaseVotesNegative($code) {
 
-        $this->increaseCounter($code, 'item-votes-negative');
+        $this->increaseCounter($code, 'nabu-item-votes-negative');
 
     }
 
     public function increaseFavoritesCounter($code) {
 
-        $this->increaseCounter($code, 'item-favorites');
+        $this->increaseCounter($code, 'nabu-item-favorites');
 
     }
 
