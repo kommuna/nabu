@@ -42,6 +42,10 @@ class SolrModel {
             ->addField('description')
             ->addField('activated_on')
             ->addField('is_param_1')
+            ->addField('views_counter')
+            ->addField('votes_positive')
+            ->addField('votes_negative')
+            ->addField('favorites_counter')
             ->addField('promo_title')
             ->addField('promo_url');
 
