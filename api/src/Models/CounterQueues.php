@@ -2,7 +2,7 @@
 
 namespace Nabu\Models;
 
-use PhpAmqpLib\Connection\AMQPConnection;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
 
@@ -13,8 +13,7 @@ class CounterQueues {
 
     public function __construct($config) {
 
-        $queue = 'media-movie-views';
-        $this->conn = new AMQPConnection($config['host'], $config['port'], $config['login'], $config['pass'], $config['vhost']);
+        $this->conn = new AMQPStreamConnection($config['host'], $config['port'], $config['login'], $config['pass'], $config['vhost']);
 
     }
 
