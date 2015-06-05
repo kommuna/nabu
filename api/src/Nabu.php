@@ -190,6 +190,8 @@ class Nabu {
 
     public function increaseViewsCounterByCode($code) {
 
+
+
         $this->setModel(new IM(self::$settings['db'], self::$logger))->increaseViewsCounter($code);
 
     }
