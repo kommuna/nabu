@@ -6,6 +6,7 @@ $loader = require './../vendor/autoload.php';
 
 use Nabu\Exceptions\ModelException;
 use Nabu\Models\CategoryModel as CM;
+use Nabu\Models\CounterQueues;
 use Nabu\Models\ItemModel as IM;
 use Nabu\Models\SolrModel as SM;
 use Nabu\Exceptions\NabuException as E;
@@ -190,9 +191,25 @@ class Nabu {
 
     public function increaseViewsCounterByCode($code) {
 
+        (new CounterQueues(self::$settings['rabbitMQ']))->increaseViewsCounter($code);
 
+    }
 
-        $this->setModel(new IM(self::$settings['db'], self::$logger))->increaseViewsCounter($code);
+    public function increaseVotesPositiveByCode($code) {
+
+        (new CounterQueues(self::$settings['rabbitMQ']))->increaseVotesPositive($code);
+
+    }
+
+    public function increaseVotesNegativeByCode($code) {
+
+        (new CounterQueues(self::$settings['rabbitMQ']))->increaseVotesNegative($code);
+
+    }
+
+    public function increaseFavoritesCounterByCode($code) {
+
+        (new CounterQueues(self::$settings['rabbitMQ']))->increaseFavoritesCounter($code);
 
     }
 
