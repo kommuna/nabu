@@ -23,6 +23,7 @@ class ItemValidators {
             'posted_on' => v::oneOf(v::date(), v::nullValue()),
             'activated_on' => v::oneOf(v::date(), v::nullValue()),
             'is_param_1' => v::oneOf(v::bool(), v::nullValue()),
+            'site' => v::oneOf(v::string(), v::nullValue()),
             'deleted_on' => false,
         ];
     }
