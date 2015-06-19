@@ -19,6 +19,7 @@ class SolrModel {
 
         $this->setFieldsValidators((new ItemValidators())->get());
         $this->client = new SolrClient($config);
+        $this->logger->addDebug(print_r($config, 1));
 
 
     }
@@ -62,8 +63,13 @@ class SolrModel {
         $this->applyFilter($query, $params);
         $this->applyOrder($query, $params);
 
+        try {
+            $queryResponse = $this->client->query($query);
+        } catch(\SolrClientException $e) {
+            $this->logger->addDebug(print_r($e->getInternalInfo(), 1));
+            throw $e;
+        }
 
-        $queryResponse = $this->client->query($query);
 
         if($queryResponse->success()) {
 
