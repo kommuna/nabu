@@ -15,7 +15,7 @@ class ItemValidators {
             'id' => v::oneOf(v::numeric()->positive(), v::nullValue()),
             'code' => false,
             'category_id' => v::int()->positive()->min(0),
-            'name' => v::string()->length(1,256)->notEmpty()->callback('ItemModel::isForbiddenTermExists'),
+            'name' => v::string()->length(1,256)->notEmpty()->callback('Nabu\Models\ItemModel::isForbiddenTermExists'),
             'description' => v::oneOf(v::string(), v::nullValue()),
             'promo_title' => v::oneOf(v::string(), v::nullValue()),
             'promo_url' => v::oneOf(v::string(), v::nullValue()),
