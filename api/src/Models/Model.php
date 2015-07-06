@@ -212,10 +212,11 @@ abstract class Model {
         }
 
         $count = $orm->count();
-
+/*
         if($params && $params->getOffset()) {
             $count = $params->getOffset() < $count ? $count - $params->getOffset() : 0;
         }
+*/
 
         return $count;
 
