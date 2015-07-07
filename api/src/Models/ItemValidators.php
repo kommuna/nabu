@@ -29,7 +29,6 @@ class ItemValidators {
             'favorites_counter' => false,
             'votes_negative' => false,
             'votes_positive' => false,
-            '_id' => false,
         ];
     }
 
