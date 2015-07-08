@@ -19,7 +19,6 @@ class ItemModel extends Model {
         parent::__construct($dbSettings, $logger);
 
     }
-
     static public function setForbiddenTerms($forbiddenTerms) {
         self::$forbiddenTerms = $forbiddenTerms;
     }

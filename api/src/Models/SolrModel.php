@@ -19,8 +19,6 @@ class SolrModel {
 
         $this->setFieldsValidators((new ItemValidators())->get());
         $this->client = new SolrClient($config);
-        $this->logger->addDebug(print_r($config, 1));
-
 
     }
 
