@@ -18,7 +18,7 @@ class CategoryModel extends Model {
             'name' => v::string()->length(1,256)->notEmpty(),
             'description' => v::string()->notEmpty(),
             'priority' => v::int()->notEmpty(),
-            'visible' => v::bool()->notEmpty()
+            'visible' => v::bool()
         ];
     }
 
