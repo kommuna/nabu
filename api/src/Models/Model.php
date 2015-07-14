@@ -41,7 +41,7 @@ abstract class Model {
         ORM::configure('driver_options', [
             \PDO::ATTR_EMULATE_PREPARES => $dbSettings['emulatePrepares'],
             \PDO::ATTR_PERSISTENT => $dbSettings['persistent'],
-        ]);
+        ],self::$connectionName);
 
 
         if($logger && isset($dbSettings['debug']) && $dbSettings['debug']) {
