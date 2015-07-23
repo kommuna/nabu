@@ -46,8 +46,9 @@ class ItemModel extends Model {
         $tags = $this->getValue('tags');
         if($tags) {
             $tags = '{'.implode(",",$tags).'}';
+            $this->setValue('tags', $tags);
         }
-        $this->setValue('tags', $tags);
+
     }
 
 
