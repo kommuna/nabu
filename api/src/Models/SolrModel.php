@@ -94,6 +94,8 @@ class SolrModel {
     protected function applyFilter(\SolrQuery $solrQuery, $params = null)
     {
 
+        \Slim\Slim::getInstance()->log->addDebug("Nabu: ".print_r($params,1));
+
         if (is_null($params)) {
             return $solrQuery;
         }
