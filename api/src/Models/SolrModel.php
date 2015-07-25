@@ -107,6 +107,8 @@ class SolrModel {
 
         foreach (array_keys($fields) as $field) {
 
+            \Slim\Slim::getInstance()->log->addDebug("Nabu #2.1: ".print_r($filter,1) . " | " .print_r($field,1));
+
             if (!isset($filter[$field])) {
                 continue;
             } else {
