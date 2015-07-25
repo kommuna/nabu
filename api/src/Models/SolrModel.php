@@ -94,8 +94,6 @@ class SolrModel {
     protected function applyFilter(\SolrQuery $solrQuery, $params = null)
     {
 
-        \Slim\Slim::getInstance()->log->addDebug("Nabu #1: ".print_r($params,1));
-
         if (is_null($params)) {
             return $solrQuery;
         }
@@ -103,19 +101,13 @@ class SolrModel {
         $filter = $params->getFilter();
         $fields = $this->getFieldsValidators();
 
-        \Slim\Slim::getInstance()->log->addDebug("Nabu #2: ".print_r($filter,1) . " | " . print_r(array_keys($fields),1));
-
         foreach (array_keys($fields) as $field) {
-
-            \Slim\Slim::getInstance()->log->addDebug("Nabu #2.1: ".print_r($filter,1) . " | " .print_r($field,1));
 
             if (!array_key_exists($field, $filter)) {
                 continue;
             } else {
                 $fieldParams = $filter[$field];
             }
-
-            \Slim\Slim::getInstance()->log->addDebug("Nabu #3: ".print_r($fieldParams,1));
 
             if (is_array($fieldParams)) {
 
@@ -170,7 +162,6 @@ class SolrModel {
                 //http://stackoverflow.com/questions/4238609/how-to-query-solr-for-empty-fields
                 if(is_null($fieldParams)) {
                     $solrQuery->addFilterQuery("-$field:[* TO *]");
-                    \Slim\Slim::getInstance()->log->addDebug("Nabu #4: -$field:[* TO *]");
                 }
 
                 // Logical fields should start by 'is_' (is_logo_on)
