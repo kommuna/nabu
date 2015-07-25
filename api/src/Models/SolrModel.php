@@ -94,7 +94,7 @@ class SolrModel {
     protected function applyFilter(\SolrQuery $solrQuery, $params = null)
     {
 
-        \Slim\Slim::getInstance()->log->addDebug("Nabu: ".print_r($params,1));
+        \Slim\Slim::getInstance()->log->addDebug("Nabu #1: ".print_r($params,1));
 
         if (is_null($params)) {
             return $solrQuery;
@@ -103,6 +103,8 @@ class SolrModel {
         $filter = $params->getFilter();
         $fields = $this->getFieldsValidators();
 
+        \Slim\Slim::getInstance()->log->addDebug("Nabu #2: ".print_r($filter,1));
+
         foreach (array_keys($fields) as $field) {
 
             if (!isset($filter[$field])) {
@@ -110,6 +112,8 @@ class SolrModel {
             } else {
                 $fieldParams = $filter[$field];
             }
+
+            \Slim\Slim::getInstance()->log->addDebug("Nabu #3: ".print_r($fieldParams,1));
 
             if (is_array($fieldParams)) {
 
@@ -172,7 +176,7 @@ class SolrModel {
                     $fieldParams = $time !== false ? date("c", $time).'Z' : false;
 
                 }
-                \Slim\Slim::getInstance()->log->addDebug("Nabu: $field:$fieldParams");
+                \Slim\Slim::getInstance()->log->addDebug("Nabu #4: $field:$fieldParams");
 
                 $solrQuery->addFilterQuery("$field:$fieldParams");
 
