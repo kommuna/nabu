@@ -109,7 +109,7 @@ class SolrModel {
 
             \Slim\Slim::getInstance()->log->addDebug("Nabu #2.1: ".print_r($filter,1) . " | " .print_r($field,1));
 
-            if (!isset($filter[$field])) {
+            if (!array_key_exists($field, $filter)) {
                 continue;
             } else {
                 $fieldParams = $filter[$field];
@@ -166,21 +166,29 @@ class SolrModel {
 
             } else {
 
+
+                //http://stackoverflow.com/questions/4238609/how-to-query-solr-for-empty-fields
+                if(is_null($fieldParams)) {
+                    $solrQuery->addFilterQuery("-$field:[* TO *]");
+                    \Slim\Slim::getInstance()->log->addDebug("Nabu #4: -$field:[* TO *]");
+                }
+
                 // Logical fields should start by 'is_' (is_logo_on)
-                if (substr($field, 0, 3) == 'is_') {
+                elseif (substr($field, 0, 3) == 'is_') {
 
-                    $fieldParams = $fieldParams ? 'true' : 'false';
+                    $fieldParams = $fieldParams  ? 'true' : 'false';
 
-                    // Date fields should end by '_on' (posted_on)
-                } elseif (substr($field, -3) == '_on') {
+
+                    $solrQuery->addFilterQuery("$field:$fieldParams");
+                }
+                // Date fields should end by '_on' (posted_on)
+                elseif (substr($field, -3) == '_on') {
 
                     $time = strtotime($fieldParams);
                     $fieldParams = $time !== false ? date("c", $time).'Z' : false;
 
                 }
-                \Slim\Slim::getInstance()->log->addDebug("Nabu #4: $field:$fieldParams");
 
-                $solrQuery->addFilterQuery("$field:$fieldParams");
 
 
             }
