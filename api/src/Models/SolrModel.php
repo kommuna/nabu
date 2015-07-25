@@ -103,7 +103,7 @@ class SolrModel {
         $filter = $params->getFilter();
         $fields = $this->getFieldsValidators();
 
-        \Slim\Slim::getInstance()->log->addDebug("Nabu #2: ".print_r($filter,1) . " | " . print_r($fields,1));
+        \Slim\Slim::getInstance()->log->addDebug("Nabu #2: ".print_r($filter,1) . " | " . print_r(array_keys($fields),1));
 
         foreach (array_keys($fields) as $field) {
 
