@@ -170,6 +170,7 @@ class SolrModel {
                     $fieldParams = $time !== false ? date("c", $time).'Z' : false;
 
                 }
+                \Slim\Slim::getInstance()->log->addDebug("Nabu: $field:$fieldParams");
 
                 $solrQuery->addFilterQuery("$field:$fieldParams");
 
