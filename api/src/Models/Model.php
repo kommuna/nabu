@@ -238,7 +238,7 @@ abstract class Model {
 
         foreach(array_keys($fields) as $field) {
 
-            if(!isset($filter[$field])) {
+            if(!array_key_exists($field, $filter)) {
                 continue;
             } else {
                 $fieldParams = $filter[$field];
@@ -291,12 +291,15 @@ abstract class Model {
                 }
             } else {
 
-                // Logical fields should start by 'is_' (is_logo_on)
-                if(substr($field, 0,3) == 'is_') {
-                    $fieldParams = (int)($fieldParams);
+                if(is_null($fieldParams)) {
 
+                }
+                // Logical fields should start by 'is_' (is_logo_on)
+                elseif(substr($field, 0,3) == 'is_') {
+                    $fieldParams = !!$fieldParams;
+                }
                 // Date fields should end by '_on' (posted_on)
-                } elseif(substr($field, -3) == '_on') {
+                elseif(substr($field, -3) == '_on') {
                     $time = strtotime($fieldParams);
                     $fieldParams = $time !== false ? date("Y-m-d H:i:s", $time) : false;
                 }
@@ -306,6 +309,7 @@ abstract class Model {
                 } else {
                     $orm->where_equal($field, $fieldParams);
                 }
+
 
             }
         }
