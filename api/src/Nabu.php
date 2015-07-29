@@ -23,6 +23,8 @@ class Nabu {
         self::$settings = $settings;
         self::$logger = $logger;
 
+        IM::setForbiddenTerms(self::$settings['forbiddenTerms']);
+
     }
 
     protected function setModel($model) {
@@ -155,8 +157,6 @@ class Nabu {
     public function addItem($data) {
 
         $data['posted_on'] = !empty($data['posted_on']) ? $data['posted_on'] : date('c');
-        IM::setForbiddenTerms(self::$settings['forbiddenTerms']);
-
         return $this->setModel(new IM(self::$settings['db'], self::$logger))->add($data);
 
     }
