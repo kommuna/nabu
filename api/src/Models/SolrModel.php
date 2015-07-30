@@ -178,6 +178,8 @@ class SolrModel {
                     $time = strtotime($fieldParams);
                     $fieldParams = $time !== false ? date("c", $time).'Z' : false;
 
+                } else {
+                    $solrQuery->addFilterQuery("$field:$fieldParams");
                 }
 
 
