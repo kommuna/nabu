@@ -2,7 +2,7 @@
 
 namespace Nabu\Models;
 
-use Nabu\Exceptions\Unavalable451;
+use Nabu\Exceptions\UnprocessableEntity422;
 
 
 class ItemModel extends Model {
@@ -33,7 +33,7 @@ class ItemModel extends Model {
 
         foreach(self::$forbiddenTerms as $term) {
             if(mb_strpos($textToCheck, $term) !== false) {
-                Unavalable451::throwException("'$textToCheck' contain forbidden '$term'");
+                UnprocessableEntity422::throwException("'$textToCheck' contain forbidden '$term'");
             }
         }
 
