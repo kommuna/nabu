@@ -10,14 +10,25 @@ class CounterQueues {
 
     protected $queueName;
     protected $conn;
+    protected $connectionError;
 
     public function __construct($config) {
 
-        $this->conn = new AMQPStreamConnection($config['host'], $config['port'], $config['login'], $config['pass'], $config['vhost']);
+        try {
+            $this->conn = new AMQPStreamConnection($config['host'], $config['port'], $config['login'], $config['pass'],
+                $config['vhost'], false, 'AMQPLAIN', null, 'en_US', 1, 1, null, true);
+        } catch(\Exception $e) {
+            $this->connectionError = $e;
+        }
+
 
     }
 
     protected function increaseCounter($code, $queueName) {
+
+        if($this->connectionError) {
+            return;
+        }
 
         $ch = $this->conn->channel();
 
