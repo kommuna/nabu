@@ -46,7 +46,9 @@ class CounterQueues {
         $ch->basic_publish($msg, '', $queueName);
         error_log('increaseCounter #5');
         $ch->close();
+        error_log('increaseCounter #6');
         $this->conn->close();
+        error_log('increaseCounter #7');
 
     }
 
