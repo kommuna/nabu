@@ -15,9 +15,15 @@ class CounterQueues {
     public function __construct($config) {
 
         try {
+            if(empty($config['host'])) {
+                throw new \Exception('RabbitMQ disabled or not configured');
+            }
+            error_log('AMQPStreamConnection start');
             $this->conn = new AMQPStreamConnection($config['host'], $config['port'], $config['login'], $config['pass'],
                 $config['vhost'], false, 'AMQPLAIN', null, 'en_US', 1, 1, null, true);
+            error_log('AMQPStreamConnection stop #1');
         } catch(\Exception $e) {
+            error_log('AMQPStreamConnection stop #2');
             $this->connectionError = $e;
         }
 
