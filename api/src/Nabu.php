@@ -1,8 +1,16 @@
 <?php
 
+/**
+ * NABU
+ *
+ * Main module
+ *
+ */
+
 namespace Nabu;
 
-$loader = require './../vendor/autoload.php';
+// PSR-4 Autoload
+require './../vendor/autoload.php';
 
 use Nabu\Exceptions\ModelException;
 use Nabu\Models\CategoryModel as CM;
@@ -18,20 +26,40 @@ class Nabu {
     protected static $logger;
     protected $model;
 
+    /**
+     * Constructor
+     *
+     * @param $settings - NABU's setting
+     * @param null $logger - PSR-3 logger
+     */
     public function __construct($settings, $logger = null) {
 
         self::$settings = $settings;
         self::$logger = $logger;
 
+        // Get forrbidden terms from config file
         IM::setForbiddenTerms(self::$settings['forbiddenTerms']);
 
     }
 
+    /**
+     * Model setter method
+     *
+     * @param $model – model setter
+     * @return $this – current object
+     */
     protected function setModel($model) {
         $this->model = $model;
         return $this;
     }
 
+    /**
+     * Wrapper method to get item data by ID
+     *
+     * @param $id – item ID
+     * @return mixed – item data
+     * @throws static – method can stop by NabuException
+     */
     protected function get($id) {
         try {
             $data = $this->model->get($id);
@@ -42,6 +70,13 @@ class Nabu {
         return $data;
     }
 
+    /**
+     * Wrapper method to add item data to Nabu
+     *
+     * @param $data – array of item fields and values
+     * @return mixed – array of added item fileds and values
+     * @throws static – method can stop by NabuException
+     */
     protected function add($data) {
 
         try {
@@ -51,29 +86,39 @@ class Nabu {
             E::throwException($e->getErrors());
         }
 
-        return $ret ;
+        return $ret;
 
     }
 
+    /**
+     * Wrapper method to delete item by ID from NABU
+     *
+     * @param $id – item ID
+     * @throws static – method can stop by NabuException
+     */
     protected function delete($id) {
-        try {;
+
+        try {
             $this->model->delete($id);
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
         }
 
-        return true;
     }
 
+    /**
+     * Wrapper method to mark as deleted item by ID from NABU
+     *
+     * @param $id – item ID
+     * @throws static – method can stop by NabuException
+     */
     protected function markAsDelete($id) {
 
-        try {;
+        try {
             $this->model->markAsDeleted($id);
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
         }
-
-        return true;
     }
 
     protected function edit($id, $data) {
@@ -88,6 +133,16 @@ class Nabu {
         return $data;
     }
 
+    /**
+     * Wrapper method to get array (list) of items with total count
+     *
+     * @param $params – params to affect list of arrays [order, filter, offset, limit]
+     * @throws static – method can stop by NabuException
+     * @return array - array with two items:
+     *
+     *     data – array of items
+     *     count – total count of item (without limit parameter)
+     */
     protected function listing($params = null) {
 
         try {
@@ -103,6 +158,12 @@ class Nabu {
 
     }
 
+    /**
+     * Increase view counter by item code
+     *
+     * @param $code – item code
+     * @throws static – method can stop by NabuException
+     */
     protected function increaseViewsCounter($code) {
 
         try {
@@ -120,40 +181,82 @@ class Nabu {
             E::throwException($e->getErrors());
         }
 
-        return true;
-
     }
 
+    /**
+     * Create category
+     *
+     *
+     * @param $data – category data
+     * @return mixed – create category data or NabuException with error description
+     */
     public function addCategory($data) {
 
         return $this->setModel(new CM(self::$settings['db'], self::$logger))->add($data);
 
     }
 
+    /**
+     * Get category data by ID
+     *
+     * @param $id –category id
+     * @return array – category data or NabuException with error description
+     */
     public function getCategory($id) {
 
         return $this->setModel(new CM(self::$settings['db'], self::$logger))->get($id);
 
     }
 
+    /**
+     * Delete category date by ID
+     *
+     * @param $id - category id
+     * @throws static – method can stop by NabuException
+     */
     public function deleteCategory($id) {
 
         return $this->setModel(new CM(self::$settings['db'], self::$logger))->delete($id);
 
     }
 
+    /**
+     * Edit category
+     *
+     * @param $id – category id
+     * @param $data array – field that should be editted with values
+     * @return array – editted category
+     * @throws static – method can stop by NabuException
+     *
+     */
     public function editCategory($id, $data) {
 
         return $this->setModel(new CM(self::$settings['db'], self::$logger))->edit($id,$data);
 
     }
 
+    /**
+     * Get category list
+     *
+     * @param $params – params to affect list of arrays [order, filter, offset, limit]
+     * @return array – categories list
+     * @throws static – method can stop by NabuException
+     *
+     */
     public function getCategories($params = null) {
 
         return $this->setModel(new CM(self::$settings['db'], self::$logger))->listing($params);
 
     }
 
+
+    /**
+     * Create item
+     *
+     *
+     * @param $data – item data
+     * @return mixed – create item data or NabuException with error description
+     */
     public function addItem($data) {
 
         $data['posted_on'] = !empty($data['posted_on']) ? $data['posted_on'] : date('c');
@@ -161,53 +264,112 @@ class Nabu {
 
     }
 
+    /**
+     * Get item data by item ID
+     *
+     * @param $id – item ID
+     * @return array – item data or NabuException with error description
+     */
     public function getItem($id) {
 
         return $this->setModel(new IM(self::$settings['db'], self::$logger))->get($id);
 
     }
 
+    /**
+     * Delete (mark as deleted) item by ID
+     *
+     * @param $id – item ID
+     * @throws static – method can stop by NabuException
+     */
     public function deleteItem($id) {
 
         return $this->setModel(new IM(self::$settings['db'], self::$logger))->markAsDelete($id);
 
     }
 
+    /**
+     * Edit item by item ID
+     *
+     * @param $id – item ID
+     * @param $data array – field that should be editted with values
+     * @return array – editted item
+     * @throws static – method can stop by NabuException
+     */
     public function editItem($id, $data) {
 
         return $this->setModel(new IM(self::$settings['db'], self::$logger))->edit($id,$data);
 
     }
 
+    /**
+     * Get items list
+     *
+     * @param $params – params to affect list of arrays [order, filter, offset, limit]
+     * @return array – items list
+     * @throws static – method can stop by NabuException
+     *
+     */
     public function getItems($params = null) {
 
         return $this->setModel(new IM(self::$settings['db'], self::$logger))->listing($params);
 
     }
 
+
+    /**
+     * Search items (Solr model)
+     *
+     * @param $params – params to affect list of arrays [order, filter, offset, limit] to affect list of arrays [order, filter, offset, limit]
+     * @return array – items list
+     */
     public function searchItems($params = null) {
 
         return $this->setModel(new SM(self::$settings['solr'], self::$logger))->listing($params);
     }
 
+    /**
+     * Increase item's view counter by item code
+     *
+     * @param $code – item code
+     * @throws static – method can stop by NabuException
+     */
     public function increaseViewsCounterByCode($code) {
 
         (new CounterQueues(self::$settings['rabbitMQ']))->increaseViewsCounter($code);
 
     }
 
+    /**
+     * Increase item's positive votes counter by item code
+     *
+     * @param $code – item code
+     * @throws static – method can stop by NabuException
+     */
     public function increaseVotesPositiveByCode($code) {
 
         (new CounterQueues(self::$settings['rabbitMQ']))->increaseVotesPositive($code);
 
     }
 
+    /**
+     * Increase item's negative votes counter by item code
+     *
+     * @param $code – item code
+     * @throws static – method can stop by NabuException
+     */
     public function increaseVotesNegativeByCode($code) {
 
         (new CounterQueues(self::$settings['rabbitMQ']))->increaseVotesNegative($code);
 
     }
 
+    /**
+     * Increase item's favorites votes counter by item code
+     *
+     * @param $code – item code
+     * @throws static – method can stop by NabuException
+     */
     public function increaseFavoritesCounterByCode($code) {
 
         (new CounterQueues(self::$settings['rabbitMQ']))->increaseFavoritesCounter($code);
