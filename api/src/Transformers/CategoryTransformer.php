@@ -9,6 +9,8 @@ class CategoryTransformer extends Fractal\TransformerAbstract {
 
     public function transform($categoryArray) {
 
+        print_r($categoryArray,1);
+/*
         return [
 
             'id' => (int)$categoryArray['id'],
@@ -19,5 +21,6 @@ class CategoryTransformer extends Fractal\TransformerAbstract {
             'visible' => (bool)$categoryArray['visible'],
 
         ];
+*/
     }
 }
