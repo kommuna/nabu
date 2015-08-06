@@ -9,7 +9,7 @@ class CategoryTransformer extends Fractal\TransformerAbstract {
 
     public function transform($categoryArray) {
 
-        print_r($categoryArray,1);
+        error_log(print_r($categoryArray,1));
 /*
         return [
 
