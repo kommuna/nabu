@@ -44,7 +44,7 @@ class ItemModel extends Model {
     protected function afterValidateValues() {
 
         $tags = $this->getValue('tags');
-        if($tags) {
+        if($tags || is_array($tags)) {
             $tags = '{'.implode(",",$tags).'}';
             $this->setValue('tags', $tags);
         }
