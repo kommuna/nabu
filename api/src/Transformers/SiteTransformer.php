@@ -7,14 +7,16 @@ use League\Fractal;
 class SiteTransformer extends Fractal\TransformerAbstract {
 
 
-    public function transform($categoryArray) {
+    public function transform($siteArray) {
+        
+        error_log(print_r($siteArray,1));
 
         return [
 
-            'id' => (int)$categoryArray['id'],
-            'code' => $categoryArray['code'],
-            'title' => $categoryArray['title'],
-            'url' => $categoryArray['url'],
+            'id' => (int)$siteArray['id'],
+            'code' => $siteArray['code'],
+            'title' => $siteArray['title'],
+            'url' => $siteArray['url'],
         ];
 
     }
