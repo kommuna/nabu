@@ -14,6 +14,7 @@ require './../vendor/autoload.php';
 
 use Nabu\Exceptions\ModelException;
 use Nabu\Models\CategoryModel as CM;
+use Nabu\Models\SiteModel as SIM;
 use Nabu\Models\CounterQueues;
 use Nabu\Models\ItemModel as IM;
 use Nabu\Models\SolrModel as SM;
@@ -373,6 +374,72 @@ class Nabu {
     public function increaseFavoritesCounterByCode($code) {
 
         (new CounterQueues(self::$settings['rabbitMQ']))->increaseFavoritesCounter($code);
+
+    }
+
+    /**
+     * Create site
+     *
+     *
+     * @param $data – site data
+     * @return mixed – create category data or NabuException with error description
+     */
+    public function addSite($data) {
+
+        return $this->setModel(new SIM(self::$settings['db'], self::$logger))->add($data);
+
+    }
+
+    /**
+     * Get site data by ID
+     *
+     * @param $id –site id
+     * @return array – site data or NabuException with error description
+     */
+    public function getSite($id) {
+
+        return $this->setModel(new SIM(self::$settings['db'], self::$logger))->get($id);
+
+    }
+
+    /**
+     * Delete site date by ID
+     *
+     * @param $id - category id
+     * @throws static – method can stop by NabuException
+     */
+    public function deleteSite($id) {
+
+        return $this->setModel(new SIM(self::$settings['db'], self::$logger))->delete($id);
+
+    }
+
+    /**
+     * Edit site
+     *
+     * @param $id – site id
+     * @param $data array – field that should be editted with values
+     * @return array – editted site
+     * @throws static – method can stop by NabuException
+     *
+     */
+    public function editSite($id, $data) {
+
+        return $this->setModel(new SIM(self::$settings['db'], self::$logger))->edit($id,$data);
+
+    }
+
+    /**
+     * Get sites list
+     *
+     * @param $params – params to affect list of arrays [order, filter, offset, limit]
+     * @return array – sites list
+     * @throws static – method can stop by NabuException
+     *
+     */
+    public function getSites($params = null) {
+
+        return $this->setModel(new SIM(self::$settings['db'], self::$logger))->listing($params);
 
     }
 
