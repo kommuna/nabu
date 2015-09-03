@@ -8,8 +8,6 @@ class SiteTransformer extends Fractal\TransformerAbstract {
 
 
     public function transform($siteArray) {
-        
-        error_log(print_r($siteArray,1));
 
         return [
 
