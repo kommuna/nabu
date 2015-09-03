@@ -13,8 +13,8 @@ class SiteTransformer extends Fractal\TransformerAbstract {
 
             'id' => (int)$categoryArray['id'],
             'code' => $categoryArray['code'],
-            'title' => $categoryArray['name'],
-            'url' => $categoryArray['description'],
+            'title' => $categoryArray['title'],
+            'url' => $categoryArray['url'],
         ];
 
     }
