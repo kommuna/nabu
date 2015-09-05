@@ -292,7 +292,7 @@ abstract class Model {
             } else {
 
                 if(is_null($fieldParams)) {
-
+                    $orm->where_null($field);
                 }
                 // Logical fields should start by 'is_' (is_logo_on)
                 elseif(substr($field, 0,3) == 'is_') {
