@@ -291,26 +291,25 @@ abstract class Model {
                 }
             } else {
 
-                // Logical fields should start by 'is_' (is_logo_on)
-                if(substr($field, 0,3) == 'is_') {
-                    $fieldParams = !!$fieldParams;
-                }
-                // Date fields should end by '_on' (posted_on)
-                elseif(substr($field, -3) == '_on') {
-                    $time = strtotime($fieldParams);
-                    $fieldParams = $time !== false ? date("Y-m-d H:i:s", $time) : false;
-                }
-
-                if(strpos($fieldParams, '%') !== false) {
-
-                    $orm->where_like($field, $fieldParams);
-
-                } elseif (is_null($fieldParams)) {
-
+                if (is_null($fieldParams)) {
                     $orm->where_null($field);
-                }
-                else {
-                    $orm->where_equal($field, $fieldParams);
+                } else {
+
+                    // Logical fields should start by 'is_' (is_logo_on)
+                    if (substr($field, 0, 3) == 'is_') {
+                        $fieldParams = !!$fieldParams;
+                    } // Date fields should end by '_on' (posted_on)
+                    elseif (substr($field, -3) == '_on') {
+                        $time = strtotime($fieldParams);
+                        $fieldParams = $time !== false ? date("Y-m-d H:i:s", $time) : false;
+                    }
+
+                    if (strpos($fieldParams, '%') !== false) {
+                        $orm->where_like($field, $fieldParams);
+                    } else {
+                        $orm->where_equal($field, $fieldParams);
+                    }
+
                 }
 
 
