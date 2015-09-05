@@ -291,11 +291,8 @@ abstract class Model {
                 }
             } else {
 
-                if(is_null($fieldParams)) {
-                    $orm->where_null($field);
-                }
                 // Logical fields should start by 'is_' (is_logo_on)
-                elseif(substr($field, 0,3) == 'is_') {
+                if(substr($field, 0,3) == 'is_') {
                     $fieldParams = !!$fieldParams;
                 }
                 // Date fields should end by '_on' (posted_on)
@@ -305,8 +302,14 @@ abstract class Model {
                 }
 
                 if(strpos($fieldParams, '%') !== false) {
+
                     $orm->where_like($field, $fieldParams);
-                } else {
+
+                } elseif (is_null($fieldParams)) {
+
+                    $orm->where_null($field);
+                }
+                else {
                     $orm->where_equal($field, $fieldParams);
                 }
 
