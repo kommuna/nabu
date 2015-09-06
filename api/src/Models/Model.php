@@ -242,6 +242,10 @@ abstract class Model {
                 continue;
             } else {
 
+                if(is_null($fields[$field])) {
+                    ModelException::throwException("Field '$field' is not searchable");
+                }
+
                 $fieldParams = $filter[$field];
 
             }
@@ -267,7 +271,7 @@ abstract class Model {
                     }
 
                     if(!$fields[$field]->validate($from)) {
-                        ModelException::throwException("Wrong '$field' parameter");
+
                     }
 
                     if($from !== false) {
