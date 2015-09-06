@@ -241,7 +241,12 @@ abstract class Model {
             if(!array_key_exists($field, $filter)) {
                 continue;
             } else {
+
                 $fieldParams = $filter[$field];
+                if(!$fields[$field]->validate($fieldParams)) {
+                    ModelException::throwException("Wrong '$field' parameter");
+                }
+
             }
 
             $fromToFlag = false;
@@ -311,7 +316,6 @@ abstract class Model {
                     }
 
                 }
-
 
             }
         }
