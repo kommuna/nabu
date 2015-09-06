@@ -242,10 +242,6 @@ abstract class Model {
                 continue;
             } else {
 
-                if(is_null($fields[$field])) {
-                    ModelException::throwException("Field '$field' is not searchable");
-                }
-
                 $fieldParams = $filter[$field];
 
             }
@@ -270,8 +266,8 @@ abstract class Model {
                         $from = $fieldParams['from'];
                     }
 
-                    if(!$fields[$field]->validate($from)) {
-
+                    if($fields[$field] && !$fields[$field]->validate($from)) {
+                        ModelException::throwException("Wrong '$field' parameter");
                     }
 
                     if($from !== false) {
@@ -290,7 +286,7 @@ abstract class Model {
                         $to = $fieldParams['to'];
                     }
 
-                    if(!$fields[$field]->validate($to)) {
+                    if($fields[$field] && !$fields[$field]->validate($to)) {
                         ModelException::throwException("Wrong '$field' parameter");
                     }
 
@@ -315,7 +311,7 @@ abstract class Model {
                     } // Date fields should end by '_on' (posted_on)
                     elseif (substr($field, -3) == '_on') {
 
-                        if(!$fields[$field]->validate($fieldParams)) {
+                        if($fields[$field] && !$fields[$field]->validate($fieldParams)) {
                             ModelException::throwException("Wrong '$field' parameter");
                         }
 
@@ -327,7 +323,7 @@ abstract class Model {
                         $orm->where_like($field, $fieldParams);
                     } else {
 
-                        if(!$fields[$field]->validate($fieldParams)) {
+                        if($fields[$field] && !$fields[$field]->validate($fieldParams)) {
                             ModelException::throwException("Wrong '$field' parameter");
                         }
 
