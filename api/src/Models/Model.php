@@ -243,9 +243,6 @@ abstract class Model {
             } else {
 
                 $fieldParams = $filter[$field];
-                if(!$fields[$field]->validate($fieldParams)) {
-                    ModelException::throwException("Wrong '$field' parameter");
-                }
 
             }
 
@@ -269,6 +266,10 @@ abstract class Model {
                         $from = $fieldParams['from'];
                     }
 
+                    if(!$fields[$field]->validate($from)) {
+                        ModelException::throwException("Wrong '$field' parameter");
+                    }
+
                     if($from !== false) {
                         $orm->where_gte($field, $from);
                         $fromToFlag = true;
@@ -283,6 +284,10 @@ abstract class Model {
                         $to = $time !== false ? date("Y-m-d H:i:s", $time) : false;
                     } else {
                         $to = $fieldParams['to'];
+                    }
+
+                    if(!$fields[$field]->validate($to)) {
+                        ModelException::throwException("Wrong '$field' parameter");
                     }
 
                     if($to !== false) {
@@ -305,6 +310,11 @@ abstract class Model {
                         $fieldParams = !!$fieldParams;
                     } // Date fields should end by '_on' (posted_on)
                     elseif (substr($field, -3) == '_on') {
+
+                        if(!$fields[$field]->validate($fieldParams)) {
+                            ModelException::throwException("Wrong '$field' parameter");
+                        }
+
                         $time = strtotime($fieldParams);
                         $fieldParams = $time !== false ? date("Y-m-d H:i:s", $time) : false;
                     }
@@ -312,6 +322,11 @@ abstract class Model {
                     if (strpos($fieldParams, '%') !== false) {
                         $orm->where_like($field, $fieldParams);
                     } else {
+
+                        if(!$fields[$field]->validate($fieldParams)) {
+                            ModelException::throwException("Wrong '$field' parameter");
+                        }
+
                         $orm->where_equal($field, $fieldParams);
                     }
 
