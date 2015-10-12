@@ -25,7 +25,7 @@ class ItemValidators {
             'activated_on' => v::oneOf(v::date(), v::nullValue()),
             'is_param_1' => v::oneOf(v::bool(), v::nullValue()),
             'site_id' => v::oneOf(v::int(), v::nullValue()),
-            'site' => false,
+            'site_code' => false,
             'deleted_on' => false,
             'favorites_counter' => false,
             'votes_negative' => false,
