@@ -54,7 +54,11 @@ class ItemModel extends Model {
 
     protected function beforeValidateValues() {
 
-        $siteCode = $this->getValue('site');
+        if($this->getValue('site_id')) {
+            return;
+        }
+
+        $siteCode = $this->getValue('site_code');
 
         $siteId = null;
 
@@ -65,9 +69,12 @@ class ItemModel extends Model {
             if(!$siteId) {
                 ModelException::throwException("Site with code '$siteCode' doesn't registered!");
             }
+
         }
 
         $this->setValue('site_id', $siteId);
+
+
 
     }
 
