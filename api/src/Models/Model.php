@@ -44,10 +44,11 @@ abstract class Model {
             \PDO::ATTR_PERSISTENT => $dbSettings['persistent'],
         ],self::$connectionName);
 
+        static::$dbSettings = $dbSettings;
 
         if($logger && isset($dbSettings['debug']) && $dbSettings['debug']) {
 
-            self::setLogger($logger);
+            static::setLogger($logger);
 
         }
 
