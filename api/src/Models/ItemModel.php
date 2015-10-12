@@ -63,6 +63,7 @@ class ItemModel extends Model {
         $siteId = null;
 
         if($siteCode) {
+            error_log(print_r(self::$dbSettings,1));
             $siteModel = new SiteModel(self::$dbSettings, self::$logger);
             $siteId = $siteModel->getByCode($siteCode);
 
