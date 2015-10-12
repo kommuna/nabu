@@ -63,17 +63,16 @@ class ItemModel extends Model {
         $siteId = null;
 
         if($siteCode) {
-            error_log(print_r(self::$dbSettings,1));
             $siteModel = new SiteModel(self::$dbSettings, self::$logger);
-            $siteId = $siteModel->getByCode($siteCode);
+            $site = $siteModel->getByCode($siteCode);
 
-            if(!$siteId) {
+            if(!$site) {
                 ModelException::throwException("Site with code '$siteCode' doesn't registered!");
             }
 
         }
 
-        $this->setValue('site_id', $siteId);
+        $this->setValue('site_id', $site['id']);
         unset($this->fields['site']);
         unset($this->values['site']);
 
