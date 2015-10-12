@@ -58,7 +58,7 @@ class ItemModel extends Model {
             return;
         }
 
-        $siteCode = $this->getValue('site_code');
+        $siteCode = $this->getValue('site');
 
         $siteId = null;
 
@@ -73,6 +73,8 @@ class ItemModel extends Model {
         }
 
         $this->setValue('site_id', $siteId);
+        unset($this->fields['site']);
+        unset($this->values['site']);
 
 
 

@@ -28,7 +28,7 @@ class ItemTransformer extends Fractal\TransformerAbstract {
             'deleted_on' => $itemArray['deleted_on'],
             'is_param_1' => (bool)$itemArray['is_param_1'],
             'tags' => $itemArray['tags'],
-            'site_code' => isset($itemArray['site_code']) ? $itemArray['site_code'] : null,
+            'site' => isset($itemArray['site_code']) ? $itemArray['site_code'] : null,
 
         ];
 
