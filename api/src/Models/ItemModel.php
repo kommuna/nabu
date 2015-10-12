@@ -13,17 +13,11 @@ class ItemModel extends Model {
 
     protected $tableName = 't_item';
 
-    protected $dbSettings;
-    protected $logger;
-
     public function __construct($dbSettings = null, $logger = null) {
 
         $this->setFieldsValidators((new ItemValidators)->get());
 
-        $this->dbSettings = $dbSettings;
-        $this->logger = $logger;
         parent::__construct($dbSettings, $logger);
-
     }
 
     static public function setForbiddenTerms($forbiddenTerms) {
@@ -65,7 +59,7 @@ class ItemModel extends Model {
         $siteId = null;
 
         if($siteCode) {
-            $siteModel = new SiteModel($this->dbSettings, $this->logger);
+            $siteModel = new SiteModel(self::$dbSettings, self::$logger);
             $siteId = $siteModel->getByCode($siteCode);
 
             if(!$siteId) {

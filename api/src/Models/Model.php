@@ -11,6 +11,7 @@ abstract class Model {
     protected static $connectionName = 'nabu';
 
     protected static $logger;
+    protected static $dbSettings;
 
     protected $validators = [];
     protected $fields = [];
