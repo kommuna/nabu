@@ -198,7 +198,7 @@ abstract class Model {
 
 
     public function getByCode($code) {
-        $row = ORM::for_table($this->tableName, self::$connectionName)->where('code', $code)->find_many();
+        $row = ORM::for_table($this->tableName, self::$connectionName)->where('code', $code)->find_one();
         return $row ? $row->as_array() : [];
     }
 
