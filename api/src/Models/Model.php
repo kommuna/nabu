@@ -46,9 +46,8 @@ abstract class Model {
 
         static::$dbSettings = $dbSettings;
 
-        error_log('#1' . print_r(static::$dbSettings,1));
         if($logger && isset($dbSettings['debug']) && $dbSettings['debug']) {
-            error_log('#2');
+            $logger->addDebug('test log');
             static::setLogger($logger);
 
         }
