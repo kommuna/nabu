@@ -200,7 +200,7 @@ abstract class Model {
     public function getByCode($code) {
         error_log($this->tableName . " " . self::$connectionName);
         $row = ORM::for_table($this->tableName, self::$connectionName)->where_like('code', $code);
-        error_log(print_r($row,1));
+        error_log(print_r($row->as_array(),1));
         return $row ? $row->as_array() : [];
     }
 
