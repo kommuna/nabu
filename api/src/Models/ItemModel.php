@@ -2,7 +2,7 @@
 
 namespace Nabu\Models;
 
-use Nabu\Exceptions\BadRequest400;
+use Nabu\Exceptions\ModelException;
 use Nabu\Exceptions\UnprocessableEntity422;
 
 
@@ -63,7 +63,7 @@ class ItemModel extends Model {
             $siteId = $siteModel->getByCode($siteCode);
 
             if(!$siteId) {
-                BadRequest400::throwException("Site with code '$siteCode' doesn't registered!");
+                ModelException::throwException("Site with code '$siteCode' doesn't registered!");
             }
         }
 
