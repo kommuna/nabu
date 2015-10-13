@@ -70,9 +70,11 @@ class ItemModel extends Model {
                 ModelException::throwException("Site with code '$siteCode' doesn't registered!");
             }
 
+            $siteId = $site['id'];
+
         }
 
-        $this->setValue('site_id', $site['id']);
+        $this->setValue('site_id', $siteId);
 
         if(isset($this->fields['site'])) {
             unset($this->fields['site']);
