@@ -76,10 +76,8 @@ class ItemModel extends Model {
 
         $this->setValue('site_id', $siteId);
 
-        if(isset($this->fields['site'])) {
-            unset($this->fields['site']);
-            unset($this->values['site']);
-        }
+        unset($this->fields['site']);
+        unset($this->values['site']);
 
     }
 
