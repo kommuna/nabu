@@ -47,7 +47,7 @@ class SolrModel {
             ->addField('favorites_counter')
             ->addField('promo_title')
             ->addField('promo_url')
-            ->addField('site_code');
+            ->addField('site');
 
         $query->setQuery($params && $params->getQuery() ? $params->getQuery() : '*:*');
 
