@@ -6,7 +6,7 @@ namespace Nabu\Models;
 use \Nabu\Exceptions\ModelException;
 use ORM;
 
-abstract class Model {
+abstract class Model_ {
 
     protected static $connectionName = 'nabu';
 

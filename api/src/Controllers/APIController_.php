@@ -9,7 +9,7 @@ use League\Fractal\Resource\Collection;
 use Slim\Slim;
 
 
-class APIController extends Controller {
+class APIController_ extends Controller {
 
     protected $app;
     protected $model;

@@ -4,7 +4,7 @@ namespace Nabu\Core;
 
 use Slim\Slim;
 
-class apiParams {
+class apiParams_ {
 
     static protected $app;
 

@@ -3,8 +3,8 @@
 namespace Nabu\Controllers;
 
 use \Nabu\Models\ItemModel;
-
 use \Nabu\Transformers\ItemTransformer;
+use RestModel\Controllers\APIController;
 
 
 

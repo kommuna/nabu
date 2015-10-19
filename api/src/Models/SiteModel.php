@@ -3,6 +3,7 @@
 namespace Nabu\Models;
 
 use Respect\Validation\Validator as v;
+use RestModel\Models\Model;
 
 
 class SiteModel extends Model {

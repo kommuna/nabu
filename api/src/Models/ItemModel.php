@@ -2,8 +2,9 @@
 
 namespace Nabu\Models;
 
-use Nabu\Exceptions\ModelException;
-use Nabu\Exceptions\UnprocessableEntity422;
+use RestModel\Exceptions\ModelException;
+use RestModel\Exceptions\UnprocessableEntity422;
+use RestModel\Models\Model;
 
 
 class ItemModel extends Model {

@@ -3,8 +3,8 @@
 namespace Nabu\Controllers;
 
 use Nabu\Models\CategoryModel;
-
 use Nabu\Transformers\CategoryTransformer;
+use RestModel\Controllers\APIController;
 
 
 
