@@ -54,7 +54,15 @@ class ItemModel extends Model {
 
     protected function beforeValidateValues() {
 
+        $siteId = $this->getValue('site_id');
+
+        $siteModel = new SiteModel(self::$dbSettings, self::$logger);
+
         if($this->getValue('site_id')) {
+            $site = $siteModel->getById($siteId);
+            if(!$site) {
+                ModelException::throwException("Site with id '$siteId' doesn't registered!");
+            }
             return;
         }
 
@@ -63,7 +71,7 @@ class ItemModel extends Model {
         $siteId = null;
 
         if($siteCode) {
-            $siteModel = new SiteModel(self::$dbSettings, self::$logger);
+
             $site = $siteModel->getByCode($siteCode);
 
             if(!$site) {
