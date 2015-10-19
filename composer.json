@@ -13,14 +13,23 @@
             "role": "Developer"
         }
     ],
+
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:kommuna/restmodel.git"
+        }
+    ],
+
     "require": {
         "php" : ">=5.5.0",
         "monolog/monolog": ">=1.13.0",
         "slim/slim": "2.6.2",
         "respect/validation": ">=0.9.3",
         "j4mie/idiorm": "^1.5",
-        "league/fractal": "^0.12.0",
-        "videlalvaro/php-amqplib": "2.5.0"
+        "league/fractal": ">=0.13.0",
+        "videlalvaro/php-amqplib": "2.5.0",
+        "kommuna/restmodel": "dev-master"
 
     },
     "require-dev": {
