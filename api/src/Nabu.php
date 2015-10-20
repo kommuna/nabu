@@ -18,6 +18,7 @@ use Nabu\Models\CategoryModel as CM;
 use Nabu\Models\SiteModel as SIM;
 use Nabu\Models\CounterQueues;
 use Nabu\Models\ItemModel as IM;
+use Nabu\Models\ItemValidators as IV;
 use Nabu\Exceptions\NabuException as E;
 
 
@@ -326,7 +327,7 @@ class Nabu {
      */
     public function searchItems($params = null) {
 
-        return $this->setModel(new SM(self::$settings['solr'], self::$logger))->listing($params);
+        return $this->setModel((new SM(self::$settings['solr'], self::$logger))->setFieldsValidators((new IV())->get())->listing($params);
     }
 
     /**
