@@ -327,7 +327,7 @@ class Nabu {
      */
     public function searchItems($params = null) {
 
-        return $this->setModel((new SM(self::$settings['solr'], self::$logger))->setFieldsValidators((new IV())->get())->listing($params);
+        return $this->setModel((new SM(self::$settings['solr'], self::$logger))->setFieldsValidators((new IV())->get()))->listing($params);
     }
 
     /**
