@@ -12,8 +12,7 @@ class APICategoriesController extends APIController {
 
     public function __construct() {
         parent::__construct();
-        CategoryModel::init($this->app->appConfig['db'], $this->app->log);
-        $this->model = new CategoryModel($this->app->appConfig['db']);
+        $this->model = new CategoryModel($this->app->appConfig['db'], $this->app->log);
         $this->transformer = new CategoryTransformer();
     }
 
