@@ -57,7 +57,7 @@ class ItemModel extends Model {
 
         $siteId = $this->getValue('site_id');
 
-        $siteModel = new SiteModel(self::$dbSettings, self::$logger);
+        $siteModel = new SiteModel($this->dbSettings, self::$logger);
 
         if($this->getValue('site_id')) {
             $site = $siteModel->getById($siteId);
