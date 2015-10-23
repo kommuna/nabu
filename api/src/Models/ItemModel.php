@@ -61,7 +61,7 @@ class ItemModel extends Model {
 
         if($this->getValue('site_id')) {
             if(!$this->validateValue('site_id', $siteId)) {
-                ModelException::throwException($this->getError('site_id'));
+                return;
             }
             $site = $siteModel->getById($siteId);
             if(!$site) {
