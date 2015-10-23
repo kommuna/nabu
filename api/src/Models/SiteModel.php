@@ -17,7 +17,9 @@ class SiteModel extends Model {
             'id' => v::oneOf(v::numeric()->positive(), v::nullValue()),
             'code' => v::string()->length(1,256)->notEmpty(),
             'title' => v::string()->length(1,256)->notEmpty(),
-            'url' => v::string()->notEmpty()
+            'url' => v::string()->notEmpty(),
+            'bgcolor' => v::oneOf(v::string()->length(0, 7, true), v::nullValue()),
+            'is_logoexists' => v::oneOf(v::bool()->notEmpty(), v::nullValue()),
         ];
     }
 
