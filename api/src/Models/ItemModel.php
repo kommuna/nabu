@@ -60,6 +60,9 @@ class ItemModel extends Model {
         $siteModel = new SiteModel($this->dbSettings, $this->logger);
 
         if($this->getValue('site_id')) {
+            if(!$this->validateValue('site_id', $siteId)) {
+                ModelException::throwException($this->getError('site_id'));
+            }
             $site = $siteModel->getById($siteId);
             if(!$site) {
                 ModelException::throwException("Site with id '$siteId' doesn't registered!");
