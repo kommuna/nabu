@@ -83,7 +83,7 @@ class ItemModel extends Model {
             }
 
             $siteId = $site['id'];
-            $this->setValue('site_id', $siteId);
+            $this->setValue('site_id', $siteId, true);
 
         }
 
