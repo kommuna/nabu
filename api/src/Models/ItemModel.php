@@ -83,10 +83,10 @@ class ItemModel extends Model {
             }
 
             $siteId = $site['id'];
+            $this->setValue('site_id', $siteId);
 
         }
 
-        $this->setValue('site_id', $siteId);
 
         unset($this->fields['site']);
         unset($this->values['site']);
