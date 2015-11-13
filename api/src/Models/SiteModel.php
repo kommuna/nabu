@@ -15,7 +15,7 @@ class SiteModel extends Model {
 
         return [
             'id' => v::oneOf(v::numeric()->positive(), v::nullValue()),
-            'code' => v::string()->length(1,256)->notEmpty(),
+            'code' => v::alnum('_-')->noWhitespace()->length(1,256)->notEmpty(),
             'title' => v::string()->length(1,256)->notEmpty(),
             'url' => v::string()->notEmpty(),
             'bg_color' => v::oneOf(v::string()->length(0, 7, true), v::nullValue()),
