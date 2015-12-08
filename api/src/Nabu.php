@@ -154,12 +154,10 @@ class Nabu {
             }
             $rows = $this->model->getMany($params);
             $count = $this->model->getTotalCount($params);
-            error_log("##2");
 
         } catch(ModelException $e) {
             E::throwException($e->getErrors());
         }
-        error_log("##3");
         return ['data' => $rows, 'count' => $count];
 
     }
