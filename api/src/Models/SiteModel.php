@@ -3,6 +3,7 @@
 namespace Nabu\Models;
 
 use Respect\Validation\Validator as v;
+use RestModel\Exceptions\ModelException;
 use RestModel\Models\Model;
 
 
@@ -21,6 +22,17 @@ class SiteModel extends Model {
             'bg_color' => v::oneOf(v::string()->length(0, 7, true), v::nullValue()),
             'is_logo_exist' => v::oneOf(v::bool(), v::nullValue()),
         ];
+    }
+
+    protected function beforeDelete($id) {
+
+        $itemModel = new ItemModel($this->dbSettings, $this->logger);
+
+        $items = $itemModel->getByField('site_id', $id);
+
+        if($items) {
+            ModelException::throwException("There are albums which relate to site with id = '{$id}'");
+        }
     }
 
 
