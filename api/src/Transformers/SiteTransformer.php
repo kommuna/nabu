@@ -16,6 +16,7 @@ class SiteTransformer extends Fractal\TransformerAbstract {
             'title' => $siteArray['title'],
             'url' => $siteArray['url'],
             'bg_color' => $siteArray['bg_color'],
+            'is_hidden' => (bool)$siteArray['is_hidden'],
             'is_logo_exist' => (bool)$siteArray['is_logo_exist'],
         ];
 
