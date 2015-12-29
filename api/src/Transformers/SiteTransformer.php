@@ -21,4 +21,11 @@ class SiteTransformer extends Fractal\TransformerAbstract {
         ];
 
     }
+
+    protected function beforeValidateValues() {
+
+        $isHidden = $this->getValue('is_hidden');
+        $this->value['is_hidden'] = !!$isHidden;
+
+    }
 }
