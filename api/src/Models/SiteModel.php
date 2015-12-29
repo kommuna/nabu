@@ -20,9 +20,14 @@ class SiteModel extends Model {
             'title' => v::string()->length(1,256)->notEmpty(),
             'url' => v::string()->notEmpty(),
             'bg_color' => v::oneOf(v::string()->length(0, 7, true), v::nullValue()),
-            'is_hidden' => v::oneOf(v::bool(), v::nullValue()),
+            'is_hidden' => v::bool(),
             'is_logo_exist' => v::oneOf(v::bool(), v::nullValue()),
         ];
+    }
+
+
+    protected function beforeValidateValues() {
+        $this->value['is_hidden'] = (bool)$this->getValue('is_hidden');
     }
 
     protected function beforeDelete($id) {
