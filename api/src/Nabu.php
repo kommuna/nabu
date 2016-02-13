@@ -331,7 +331,8 @@ class Nabu {
 
         return $this->setModel((new SM(self::$settings['solr'], self::$logger))->setFieldsValidators((new IV())->get()))
             ->listing($params,['id', 'code', 'category_id', 'name', 'description', 'activated_on', 'is_param_1',
-                'views_counter', 'votes_positive', 'votes_negative', 'favorites_counter', 'promo_title', 'promo_url', 'site']);
+                'views_counter', 'votes_positive', 'votes_negative', 'favorites_counter', 'promo_title', 'promo_url',
+                'site', 'tags']);
     }
 
     /**
