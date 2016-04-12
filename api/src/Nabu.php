@@ -328,8 +328,8 @@ class Nabu {
      * @return array – items list
      */
     public function searchItems($params = null) {
-
-        if($params && method_exists($params, 'getQuery')) {
+        self::$logger->addDebug(print_r($params,1));
+        if($params) {
             $query = $params->getQuery();
             if($query) {
                 (new CounterQueues(self::$settings['rabbitMQ']))->addSearchedText($query);    
