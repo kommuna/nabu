@@ -30,9 +30,11 @@ class CounterQueues {
     protected function increaseCounter($code, $queueName) {
 
         if($this->connectionError) {
+            error_log("RabbitMQ connection error");
             return;
         }
 
+        error_log("RabbitMQ: increaseCounter: $code $queueName");
         $ch = $this->conn->channel();
         $ch->queue_declare($queueName, false, true, false, false);
         $msg = new AMQPMessage($code, ['content_type' => 'text/plain', 'delivery_mode' => 2]);
