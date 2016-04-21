@@ -77,8 +77,9 @@ class ItemModel extends Model {
         if($siteCode) {
 
             $site = $siteModel->getByCode($siteCode);
+            $site = $site ? $site[0] : [];
 
-            if(!$site || empty($site['id'])) {
+            if(!$site) {
                 ModelException::throwException("Site with code '$siteCode' doesn't registered!");
             }
 
