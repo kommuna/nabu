@@ -328,7 +328,7 @@ class Nabu {
      * @return array – items list
      */
     public function searchItems($params = null) {
-        self::$logger->addDebug(print_r($params,1));
+
         if($params) {
             $query = $params->getQuery();
             if($query) {
