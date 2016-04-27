@@ -32,7 +32,7 @@ class NabuException extends Exception {
 
     protected function refreshMessage() {
 
-        $this->message = $this->errorsArray ? json_encode($this->errorsArray) : "";
+        $this->message = json_encode($this->errorsArray);
 
     }
 
