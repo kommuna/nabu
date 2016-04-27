@@ -34,7 +34,7 @@ class CounterQueues {
             return;
         }
 
-        error_log("RabbitMQ: increaseCounter: $code $queueName");
+        //error_log("RabbitMQ: increaseCounter: $code $queueName");
         $ch = $this->conn->channel();
         $ch->queue_declare($queueName, false, true, false, false);
         $msg = new AMQPMessage($code, ['content_type' => 'text/plain', 'delivery_mode' => 2]);
