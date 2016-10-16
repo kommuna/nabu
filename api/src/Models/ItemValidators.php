@@ -27,6 +27,7 @@ class ItemValidators {
             'site_id' => v::oneOf(v::int(), v::nullValue()),
             // Will be deleted after 'beforeValidateValues' call.
             'site' => v::oneOf(v::string(), v::nullValue()),
+            'external_code' => v::oneOf(v::string()->length(1,50), v::nullValue()),
             'deleted_on' => false,
             'favorites_counter' => false,
             'votes_negative' => false,
