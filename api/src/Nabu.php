@@ -455,4 +455,14 @@ class Nabu {
 
     }
 
+    /**
+     * Get items list for tags/actresses rematching
+     * @param int $limit - count of movies for rematch
+     * @return generator
+     */
+    public function getMoviesListForRematchAsGenerator($limit = 100)
+    {
+        return $this->setModel(new IM(self::$settings['db'], self::$logger))->getMoviesListForRematchAsGenerator($limit);
+    }
+
 }
