@@ -462,7 +462,7 @@ class Nabu {
      */
     public function getMoviesListForRematchAsGenerator($limit = 100)
     {
-        yield $this->setModel(new IM(self::$settings['db'], self::$logger))->getMoviesListForRematchAsGenerator($limit);
+        return $this->setModel(new IM(self::$settings['db'], self::$logger))->getMoviesListForRematchAsGenerator($limit);
     }
 
 }
