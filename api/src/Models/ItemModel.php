@@ -111,55 +111,56 @@ class ItemModel extends Model {
 
     }
 
-    public function getMoviesListForRematchAsGenerator($limit = 100)
+    public function getMoviesListForRematchAsGenerator()
     {
-        
-        $sql = 'SELECT id, name, description, array_to_json(tags) as tags, array_to_json(actresses) as actresses, 
+        return function($limit = 100) use ($this) {
+            $sql = 'SELECT id, name, description, array_to_json(tags) as tags, array_to_json(actresses) as actresses, 
                 array_to_json(forced_tags) as forced_tags, array_to_json(forced_actresses) as forced_actresses
                 FROM t_item i 
                 ORDER BY tagged_on, id
                 LIMIT ' . (int)$limit;
 
-        $pdo = $this->getPDO();
+            $pdo = $this->getPDO();
 
-        $result = $pdo->query($sql);
+            $result = $pdo->query($sql);
 
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
-            error_log($row['id']);
-            $return = [];
-            $return['id'] = $row['id'];
-            $return['match_data'] = [];
-            $return['match_data']['texts'] = [$row['name'], $row['description']];
+                error_log($row['id']);
+                $return = [];
+                $return['id'] = $row['id'];
+                $return['match_data'] = [];
+                $return['match_data']['texts'] = [$row['name'], $row['description']];
 
-            $tags = $row['tags'] ? json_decode($row['tags'], JSON_OBJECT_AS_ARRAY) : [];
-            $tags = array_map(function ($item) {
-                return ['type' => 't', 'value' => $item];
-            }, $tags);
+                $tags = $row['tags'] ? json_decode($row['tags'], JSON_OBJECT_AS_ARRAY) : [];
+                $tags = array_map(function ($item) {
+                    return ['type' => 't', 'value' => $item];
+                }, $tags);
 
-            $actresses = $row['actresses'] ? json_decode($row['actresses'], JSON_OBJECT_AS_ARRAY) : [];
-            $actresses = array_map(function ($item) {
-                return ['type' => 'a', 'value' => $item];
-            }, $actresses);
+                $actresses = $row['actresses'] ? json_decode($row['actresses'], JSON_OBJECT_AS_ARRAY) : [];
+                $actresses = array_map(function ($item) {
+                    return ['type' => 'a', 'value' => $item];
+                }, $actresses);
 
-            $ftags = $row['forced_tags'] ? json_decode($row['forced_tags'], JSON_OBJECT_AS_ARRAY) : [];
-            $ftags = array_map(function ($item) {
-                return ['type' => 'ft', 'value' => $item];
-            }, $ftags);
+                $ftags = $row['forced_tags'] ? json_decode($row['forced_tags'], JSON_OBJECT_AS_ARRAY) : [];
+                $ftags = array_map(function ($item) {
+                    return ['type' => 'ft', 'value' => $item];
+                }, $ftags);
 
-            $factresses = $row['forced_actresses'] ? json_decode($row['forced_actresses'], JSON_OBJECT_AS_ARRAY) : [];
-            $factresses = array_map(function ($item) {
-                return ['type' => 'fa', 'value' => $item];
-            }, $factresses);
+                $factresses = $row['forced_actresses'] ? json_decode($row['forced_actresses'], JSON_OBJECT_AS_ARRAY) : [];
+                $factresses = array_map(function ($item) {
+                    return ['type' => 'fa', 'value' => $item];
+                }, $factresses);
 
-            $tags = array_merge($tags, $actresses, $ftags, $factresses);
+                $tags = array_merge($tags, $actresses, $ftags, $factresses);
 
-            if ($tags) {
-                $return['match_data']['tag_originals'] = $tags;
+                if ($tags) {
+                    $return['match_data']['tag_originals'] = $tags;
+                }
+
+                yield $return;
             }
-
-            yield $return;
-        }
+        };
     }
 
 
