@@ -113,7 +113,7 @@ class ItemModel extends Model {
 
     public function getMoviesListForRematchAsGenerator()
     {
-        return function($limit = 100) use ($this) {
+        return function($limit = 100) {
             $sql = 'SELECT id, name, description, array_to_json(tags) as tags, array_to_json(actresses) as actresses, 
                 array_to_json(forced_tags) as forced_tags, array_to_json(forced_actresses) as forced_actresses
                 FROM t_item i 
