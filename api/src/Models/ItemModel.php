@@ -117,7 +117,7 @@ class ItemModel extends Model {
         $sql = 'SELECT id, name, description, array_to_json(tags) as tags, array_to_json(actresses) as actresses, 
                 array_to_json(forced_tags) as forced_tags, array_to_json(forced_actresses) as forced_actresses
                 FROM t_item i 
-                ORDER BY tagged_on, movie_id
+                ORDER BY tagged_on, id
                 LIMIT ' . (int)$limit;
 
         $pdo = $this->getPDO();
