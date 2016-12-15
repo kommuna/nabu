@@ -20,6 +20,11 @@ class ItemValidators {
             'promo_title' => v::oneOf(v::string(), v::nullValue()),
             'promo_url' => v::oneOf(v::string(), v::nullValue()),
             'tags' => v::oneOf(v::arr(), v::nullValue()),
+            'actresses' => v::oneOf(v::arr(), v::nullValue()),
+            'forced_tags' => v::oneOf(v::arr(), v::nullValue()),
+            'forced_actresses' => v::oneOf(v::arr(), v::nullValue()),
+            'tags_id' => v::oneOf(v::arr(), v::nullValue()),
+            'actresses_id' => v::oneOf(v::arr(), v::nullValue()),
             'views_counter' => false,
             'posted_on' => v::oneOf(v::date(), v::nullValue()),
             'activated_on' => v::oneOf(v::date(), v::nullValue()),
@@ -32,6 +37,7 @@ class ItemValidators {
             'favorites_counter' => false,
             'votes_negative' => false,
             'votes_positive' => false,
+            'tagged_on' => false,
         ];
     }
 
