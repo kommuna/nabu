@@ -126,7 +126,7 @@ class ItemModel extends Model {
 
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
-                error_log($row['id']);
+                //error_log($row['id']);
                 $return = [];
                 $return['id'] = $row['id'];
                 $return['match_data'] = [];
