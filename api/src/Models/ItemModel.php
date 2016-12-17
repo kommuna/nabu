@@ -163,7 +163,7 @@ class ItemModel extends Model {
     }
 
     /**
-     * @param $data - array of tags id (array) and actresses id (array) by movie id (key)
+     * @param $data - array of tags id (array) and actresses id (array) by item id (key)
      *
      */
     public function setTagsActressesIDsToItems($data)
@@ -186,7 +186,7 @@ class ItemModel extends Model {
                 ) AS t(id, tags_id, actresses_id)
                 WHERE t_item.id = t.id";
 
-        (new AgeSageDB())->execute($sql);
+        $this->getORM()->execute($sql);
 
     }
 }
