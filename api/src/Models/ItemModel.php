@@ -161,4 +161,32 @@ class ItemModel extends Model {
                 yield $return;
             }
     }
+
+    /**
+     * @param $data - array of tags id (array) and actresses id (array) by movie id (key)
+     *
+     */
+    public function setTagsActressesIDsToItems($data)
+    {
+
+        $valueStr = '';
+
+        $isFirst = true;
+
+        foreach ($data as $itemId => $data) {
+            $valueStr .= (!$isFirst ? ',' : '') . "($itemId, '{" . implode(',',
+                    $data['tags']) . "}'::int[],'{" . implode(',', $data['actresses']) . "}'::int[])";
+            $isFirst = false;
+        }
+
+        $sql = "UPDATE t_item
+                SET tags_id = t.tags_id, actresses_id = t.actresses_id, tagged_on = now()
+                FROM (VALUES
+                    $valueStr
+                ) AS t(id, tags_id, actresses_id)
+                WHERE t_item.id = t.id";
+
+        (new AgeSageDB())->execute($sql);
+
+    }
 }
