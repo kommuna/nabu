@@ -186,7 +186,7 @@ class ItemModel extends Model {
                 ) AS t(id, tags_id, actresses_id)
                 WHERE t_item.id = t.id";
 
-        $this->getORM()->execute($sql);
+        $this->getPDO()->execute($sql);
 
     }
 }
