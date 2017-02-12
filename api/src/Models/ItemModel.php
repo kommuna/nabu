@@ -111,7 +111,7 @@ class ItemModel extends Model {
 
     }
 
-    public function getMoviesListForRematchAsGenerator($limit)
+    public function getItemListForRematchAsGenerator($limit)
     {
 
             $sql = 'SELECT id, name, description, array_to_json(tags) as tags, array_to_json(actresses) as actresses, 
