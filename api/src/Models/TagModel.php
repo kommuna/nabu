@@ -14,9 +14,9 @@ class TagModel extends Model {
     {
 
         return [
-            'id' => v::oneOf(v::notEmpty()->numeric()->positive(), v::nullValue()),
-            'hash' => v::string()->notEmpty(),
-            'text' => v::oneOf(v::notEmpty()->string(), v::nullValue()),
+            'id' => v::oneOf(v::notEmpty()->numeric()->positive(), v::nullType()),
+            'hash' => v::stringType()->notEmpty(),
+            'text' => v::oneOf(v::notEmpty()->stringType(), v::nullType()),
             'counter' => false
         ];
     }

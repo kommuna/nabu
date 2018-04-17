@@ -15,13 +15,13 @@ class SiteModel extends Model {
     public function getFieldsValidators() {
 
         return [
-            'id' => v::oneOf(v::numeric()->positive(), v::nullValue()),
+            'id' => v::oneOf(v::numeric()->positive(), v::nullType()),
             'code' => v::alnum('_-')->noWhitespace()->length(1,256)->notEmpty(),
-            'title' => v::string()->length(1,256)->notEmpty(),
-            'url' => v::string()->notEmpty(),
-            'bg_color' => v::oneOf(v::string()->length(0, 7, true), v::nullValue()),
+            'title' => v::stringType()->length(1,256)->notEmpty(),
+            'url' => v::stringType()->notEmpty(),
+            'bg_color' => v::oneOf(v::stringType()->length(0, 7, true), v::nullType()),
             'is_hidden' => v::bool(),
-            'is_logo_exist' => v::oneOf(v::bool(), v::nullValue()),
+            'is_logo_exist' => v::oneOf(v::bool(), v::nullType()),
         ];
     }
 

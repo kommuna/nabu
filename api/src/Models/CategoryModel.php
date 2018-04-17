@@ -14,11 +14,11 @@ class CategoryModel extends Model {
     public function getFieldsValidators() {
 
         return [
-            'id' => v::oneOf(v::numeric()->positive(), v::nullValue()),
-            'code' => v::string()->length(1,32)->notEmpty(),
-            'name' => v::string()->length(1,256)->notEmpty(),
-            'description' => v::string()->notEmpty(),
-            'priority' => v::int()->notEmpty(),
+            'id' => v::oneOf(v::numeric()->positive(), v::nullType()),
+            'code' => v::stringType()->length(1,32)->notEmpty(),
+            'name' => v::stringType()->length(1,256)->notEmpty(),
+            'description' => v::stringType()->notEmpty(),
+            'priority' => v::intType()->notEmpty(),
             'visible' => v::bool()
         ];
     }
